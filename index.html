@@ -1,0 +1,1898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CalcGH — Ghana's Free Calculator Suite</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --clay:    #c8623a;
+  --clay2:   #a84e2c;
+  --cream:   #faf6f0;
+  --sand:    #f0e8db;
+  --sand2:   #e4d5c0;
+  --ink:     #1c1814;
+  --ink2:    #2e2820;
+  --muted:   #7a6e62;
+  --border:  #ddd3c4;
+  --white:   #ffffff;
+  --green:   #2d6a4f;
+  --green-l: #eaf4ef;
+  --blue:    #1a3f6f;
+  --blue-l:  #e8f0fa;
+  --gold:    #b8860b;
+  --gold-l:  #fdf8e8;
+  --red:     #c0392b;
+  --red-l:   #fdf0ee;
+  --r: 4px;
+}
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  overflow-x: hidden;
+}
+
+/* ─── GRAIN ─── */
+body::before {
+  content: '';
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity: .5;
+}
+
+/* ─── TOP BAR ─── */
+.topbar {
+  background: var(--ink);
+  color: rgba(250,246,240,.6);
+  padding: .45rem 0;
+  font-size: .7rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  text-align: center;
+  position: relative; z-index: 2;
+}
+.topbar strong { color: var(--clay); }
+.topbar a { color: rgba(250,246,240,.5); text-decoration: none; }
+
+/* ─── NAV ─── */
+nav {
+  background: var(--white);
+  border-bottom: 1.5px solid var(--border);
+  position: sticky; top: 0; z-index: 100;
+}
+.nav-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center;
+  padding: .9rem 2rem; gap: 2rem;
+}
+.nav-logo {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.5rem; color: var(--ink);
+  text-decoration: none; letter-spacing: -.01em;
+  display: flex; align-items: center; gap: .5rem;
+  white-space: nowrap;
+}
+.logo-badge {
+  background: var(--clay); color: #fff;
+  font-family: 'Outfit', sans-serif;
+  font-size: .6rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding: .2rem .5rem; border-radius: var(--r);
+}
+.nav-links {
+  display: flex; gap: 0; list-style: none; flex: 1;
+}
+.nav-links a {
+  font-size: .8rem; font-weight: 500; color: var(--muted);
+  text-decoration: none; padding: .5rem 1rem;
+  border-radius: var(--r); transition: all .15s;
+  white-space: nowrap;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--ink); background: var(--sand); }
+.nav-right { margin-left: auto; display: flex; align-items: center; gap: .75rem; }
+.btn-premium {
+  background: var(--clay); color: #fff;
+  font-size: .78rem; font-weight: 600; letter-spacing: .03em;
+  padding: .55rem 1.25rem; border-radius: var(--r);
+  border: none; cursor: pointer; text-decoration: none;
+  transition: background .2s; white-space: nowrap;
+}
+.btn-premium:hover { background: var(--clay2); }
+.nav-search {
+  display: flex; align-items: center;
+  background: var(--sand); border: 1px solid var(--border);
+  border-radius: var(--r); padding: .4rem .85rem; gap: .5rem;
+}
+.nav-search input {
+  border: none; background: transparent; outline: none;
+  font-family: 'Outfit', sans-serif; font-size: .8rem; color: var(--ink);
+  width: 140px;
+}
+.nav-search input::placeholder { color: var(--muted); }
+.nav-search span { font-size: .8rem; color: var(--muted); }
+
+/* ─── HERO ─── */
+.hero {
+  background: var(--ink);
+  position: relative; overflow: hidden; z-index: 1;
+}
+.hero-pattern {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(200,98,58,.12) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(200,98,58,.07) 0%, transparent 45%);
+}
+.hero-grid-deco {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(250,246,240,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(250,246,240,.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.hero-inner {
+  max-width: 1200px; margin: 0 auto; padding: 5rem 2rem 4rem;
+  display: grid; grid-template-columns: 1fr 420px;
+  gap: 5rem; align-items: center;
+  position: relative; z-index: 1;
+}
+.hero-label {
+  font-size: .68rem; font-weight: 600; letter-spacing: .15em;
+  text-transform: uppercase; color: var(--clay);
+  display: flex; align-items: center; gap: .6rem;
+  margin-bottom: 1.25rem;
+}
+.hero-label::before { content: ''; width: 20px; height: 2px; background: var(--clay); }
+.hero h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2.5rem, 4.5vw, 4rem);
+  line-height: 1.05; letter-spacing: -.02em;
+  color: var(--cream); margin-bottom: 1.25rem;
+}
+.hero h1 em { font-style: italic; color: var(--clay); }
+.hero-sub {
+  font-size: 1rem; font-weight: 300; line-height: 1.8;
+  color: rgba(250,246,240,.55); max-width: 440px; margin-bottom: 2.5rem;
+}
+.hero-stats {
+  display: flex; gap: 2.5rem; flex-wrap: wrap;
+}
+.hs-item .hs-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2rem; color: var(--cream); line-height: 1;
+}
+.hs-item .hs-label { font-size: .72rem; color: rgba(250,246,240,.4); margin-top: .2rem; letter-spacing: .04em; }
+
+/* tool quick-pick */
+.hero-tools {
+  display: flex; flex-direction: column; gap: .6rem;
+}
+.ht-label {
+  font-size: .65rem; font-weight: 600; letter-spacing: .12em;
+  text-transform: uppercase; color: rgba(250,246,240,.35);
+  margin-bottom: .35rem;
+}
+.ht-card {
+  background: rgba(250,246,240,.05);
+  border: 1px solid rgba(250,246,240,.08);
+  border-radius: var(--r); padding: .9rem 1.1rem;
+  display: flex; align-items: center; gap: .85rem;
+  cursor: pointer; transition: all .15s; text-decoration: none;
+  color: var(--cream);
+}
+.ht-card:hover {
+  background: rgba(200,98,58,.12);
+  border-color: rgba(200,98,58,.3);
+}
+.ht-icon {
+  width: 36px; height: 36px; border-radius: var(--r);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; flex-shrink: 0;
+}
+.ht-name { font-size: .88rem; font-weight: 500; }
+.ht-desc { font-size: .72rem; color: rgba(250,246,240,.45); margin-top: .1rem; }
+.ht-arrow { margin-left: auto; color: rgba(250,246,240,.3); font-size: .8rem; }
+
+/* ─── AD BANNER PLACEHOLDER ─── */
+.ad-banner {
+  background: var(--sand);
+  border: 1.5px dashed var(--sand2);
+  border-radius: var(--r);
+  padding: 1rem;
+  text-align: center;
+  position: relative; z-index: 1;
+}
+.ad-label {
+  font-size: .6rem; font-weight: 600; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: .35rem;
+}
+.ad-placeholder {
+  background: linear-gradient(135deg, var(--sand2) 0%, var(--sand) 100%);
+  border-radius: 2px; display: flex; align-items: center; justify-content: center;
+  color: var(--muted); font-size: .7rem; font-weight: 500; letter-spacing: .06em;
+}
+.ad-728 { height: 90px; width: 100%; }
+.ad-300 { height: 250px; width: 300px; max-width: 100%; margin: 0 auto; }
+.ad-sidebar { height: 280px; width: 100%; }
+
+/* ─── MAIN LAYOUT ─── */
+.page-body {
+  max-width: 1200px; margin: 0 auto;
+  padding: 3rem 2rem;
+  display: grid; grid-template-columns: 1fr 300px;
+  gap: 3rem; align-items: start;
+  position: relative; z-index: 1;
+}
+.tools-col {}
+.sidebar-col {}
+
+/* ─── SECTION LABELS ─── */
+.sec-label {
+  font-size: .65rem; font-weight: 700; letter-spacing: .15em;
+  text-transform: uppercase; color: var(--clay);
+  display: flex; align-items: center; gap: .6rem;
+  margin-bottom: .85rem;
+}
+.sec-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.sec-h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.9rem; letter-spacing: -.02em; margin-bottom: .5rem;
+}
+.sec-sub { font-size: .88rem; color: var(--muted); font-weight: 300; line-height: 1.7; margin-bottom: 2rem; }
+
+/* ─── TOOL CARDS ─── */
+.tools-grid { display: flex; flex-direction: column; gap: 2.5rem; }
+
+.tool-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(28,24,20,.04);
+}
+.tc-header {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--white);
+}
+.tc-icon-wrap {
+  width: 44px; height: 44px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; flex-shrink: 0;
+}
+.icon-orange { background: #fef0e8; }
+.icon-green  { background: var(--green-l); }
+.icon-blue   { background: var(--blue-l); }
+.icon-gold   { background: var(--gold-l); }
+.icon-red    { background: var(--red-l); }
+.tc-title { font-size: 1rem; font-weight: 600; color: var(--ink); }
+.tc-subtitle { font-size: .75rem; color: var(--muted); margin-top: .15rem; }
+.tc-free-badge {
+  margin-left: auto; flex-shrink: 0;
+  background: var(--green-l); color: var(--green);
+  font-size: .62rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  padding: .2rem .65rem; border-radius: 999px;
+}
+.tc-body { padding: 1.5rem; }
+
+/* form elements inside tools */
+.tool-form { display: flex; flex-direction: column; gap: 1rem; }
+.tf-row { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+.tf-group label {
+  display: block; font-size: .7rem; font-weight: 600;
+  letter-spacing: .06em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: .35rem;
+}
+.tf-input, .tf-select {
+  width: 100%; padding: .7rem .95rem;
+  background: var(--sand); border: 1.5px solid var(--border);
+  border-radius: var(--r); color: var(--ink);
+  font-family: 'Outfit', sans-serif; font-size: .9rem;
+  outline: none; transition: border-color .2s;
+}
+.tf-input:focus, .tf-select:focus { border-color: var(--clay); background: var(--white); }
+.tf-select { cursor: pointer; }
+.tf-select option { background: #fff; color: var(--ink); }
+.btn-calc {
+  background: var(--clay); color: #fff;
+  font-family: 'Outfit', sans-serif; font-weight: 600; font-size: .88rem;
+  padding: .8rem 1.5rem; border-radius: var(--r); border: none;
+  cursor: pointer; transition: background .2s;
+  display: inline-flex; align-items: center; gap: .5rem;
+}
+.btn-calc:hover { background: var(--clay2); }
+.btn-calc svg { width: 16px; height: 16px; }
+
+/* result box */
+.result-box {
+  background: var(--sand); border: 1.5px solid var(--border);
+  border-radius: var(--r); padding: 1.25rem;
+  margin-top: .5rem; display: none;
+}
+.result-box.show { display: block; }
+.rb-label { font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: .5rem; }
+.rb-main {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2.2rem; color: var(--clay); line-height: 1;
+  margin-bottom: .35rem;
+}
+.rb-sub { font-size: .82rem; color: var(--muted); line-height: 1.6; }
+.rb-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .6rem; margin-top: .85rem; }
+.rb-cell {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--r); padding: .7rem .85rem;
+}
+.rb-cell-val { font-size: .95rem; font-weight: 600; color: var(--ink); }
+.rb-cell-label { font-size: .65rem; color: var(--muted); margin-top: .15rem; }
+.rb-cell.highlight { background: var(--clay); border-color: var(--clay); }
+.rb-cell.highlight .rb-cell-val { color: #fff; }
+.rb-cell.highlight .rb-cell-label { color: rgba(255,255,255,.65); }
+
+/* subject grade rows */
+.grade-rows { display: flex; flex-direction: column; gap: .5rem; margin-bottom: 1rem; }
+.grade-row {
+  display: grid; grid-template-columns: 1fr 120px 80px;
+  gap: .5rem; align-items: center;
+}
+.gr-subject { font-size: .85rem; font-weight: 500; }
+.gr-select, .gr-grade {
+  padding: .55rem .75rem;
+  background: var(--sand); border: 1.5px solid var(--border);
+  border-radius: var(--r); color: var(--ink);
+  font-family: 'Outfit', sans-serif; font-size: .82rem;
+  outline: none; transition: border-color .2s;
+}
+.gr-select:focus, .gr-grade:focus { border-color: var(--clay); }
+
+/* waec grade color coding */
+.grade-A1 { color: var(--green); font-weight: 700; }
+.grade-B2, .grade-B3 { color: #2d6a4f; font-weight: 600; }
+.grade-C4, .grade-C5, .grade-C6 { color: var(--gold); font-weight: 600; }
+.grade-D7 { color: #e67e22; font-weight: 600; }
+.grade-E8, .grade-F9 { color: var(--red); font-weight: 600; }
+
+/* currency result */
+.currency-display {
+  display: grid; grid-template-columns: 1fr auto 1fr;
+  gap: 1rem; align-items: center; margin-top: 1rem;
+}
+.cd-from, .cd-to {
+  background: var(--sand); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 1rem;
+}
+.cd-amount { font-family: 'DM Serif Display', serif; font-size: 1.8rem; color: var(--ink); line-height: 1; }
+.cd-currency { font-size: .72rem; color: var(--muted); margin-top: .25rem; }
+.cd-to .cd-amount { color: var(--green); }
+.cd-arrow { font-size: 1.5rem; color: var(--border); text-align: center; }
+
+/* ─── AD MID-PAGE ─── */
+.ad-mid { margin: 2rem 0; }
+
+/* ─── SIDEBAR ─── */
+.sidebar { display: flex; flex-direction: column; gap: 1.5rem; position: sticky; top: 80px; }
+.sw {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 8px; overflow: hidden;
+}
+.sw-head {
+  padding: .85rem 1.1rem;
+  border-bottom: 1px solid var(--border);
+  font-size: .72rem; font-weight: 700; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--muted);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.sw-head a { font-size: .68rem; color: var(--clay); text-decoration: none; letter-spacing: 0; font-weight: 500; }
+.sw-body { padding: 1.1rem; }
+
+/* popular tools list */
+.pop-list { display: flex; flex-direction: column; gap: .5rem; }
+.pop-item {
+  display: flex; align-items: center; gap: .65rem;
+  padding: .55rem .65rem; border-radius: var(--r);
+  cursor: pointer; transition: background .15s; text-decoration: none; color: var(--ink);
+}
+.pop-item:hover { background: var(--sand); }
+.pop-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: .9rem; color: var(--clay); min-width: 18px;
+}
+.pop-name { font-size: .82rem; font-weight: 500; }
+.pop-uses { font-size: .65rem; color: var(--muted); }
+
+/* rate table */
+.rate-table { width: 100%; border-collapse: collapse; font-size: .82rem; }
+.rate-table th { font-size: .65rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding: .4rem .5rem; text-align: left; }
+.rate-table td { padding: .5rem; border-bottom: 1px solid var(--border); color: var(--ink); }
+.rate-table tr:last-child td { border-bottom: none; }
+.rate-up { color: var(--green); font-weight: 600; font-size: .75rem; }
+.rate-down { color: var(--red); font-size: .75rem; }
+
+/* premium box */
+.premium-box {
+  background: var(--ink); color: var(--cream);
+  border-radius: 8px; padding: 1.5rem;
+}
+.pb-badge {
+  display: inline-block; background: var(--clay); color: #fff;
+  font-size: .6rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  padding: .2rem .65rem; border-radius: 999px; margin-bottom: .85rem;
+}
+.pb-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.25rem; margin-bottom: .5rem; line-height: 1.2;
+}
+.pb-features { display: flex; flex-direction: column; gap: .4rem; margin-bottom: 1.1rem; }
+.pb-feat {
+  font-size: .78rem; color: rgba(250,246,240,.65);
+  display: flex; align-items: flex-start; gap: .45rem;
+}
+.pb-feat::before { content: '✓'; color: var(--clay); font-size: .7rem; flex-shrink: 0; }
+.pb-price {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.8rem; color: var(--clay); line-height: 1;
+  margin-bottom: .25rem;
+}
+.pb-price-note { font-size: .7rem; color: rgba(250,246,240,.35); margin-bottom: 1rem; }
+.momo-chips { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.momo-chip {
+  font-size: .58rem; font-weight: 700; padding: .2rem .6rem;
+  border-radius: 999px; display: flex; align-items: center; gap: .3rem;
+}
+.momo-chip .dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+.chip-mtn  { background: rgba(255,204,0,.12); color: #cc9900; border: 1px solid rgba(255,204,0,.2); }
+.chip-mtn .dot { background: #FFCC00; }
+.chip-voda { background: rgba(230,0,0,.1); color: #e05555; border: 1px solid rgba(230,0,0,.2); }
+.chip-voda .dot { background: #E60000; }
+.chip-airt { background: rgba(0,99,175,.1); color: #5599cc; border: 1px solid rgba(0,99,175,.2); }
+.chip-airt .dot { background: #0063AF; }
+.btn-upgrade {
+  width: 100%; background: var(--clay); color: #fff;
+  font-family: 'Outfit', sans-serif; font-weight: 600; font-size: .82rem;
+  padding: .8rem; border-radius: var(--r); border: none;
+  cursor: pointer; transition: background .2s;
+}
+.btn-upgrade:hover { background: var(--clay2); }
+
+/* ─── TOOLS SHOWCASE SECTION ─── */
+.tools-showcase {
+  max-width: 1200px; margin: 0 auto; padding: 3rem 2rem;
+  position: relative; z-index: 1;
+}
+.tools-showcase-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem; margin-top: 2rem;
+}
+.tsg-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 8px; padding: 1.5rem;
+  display: flex; flex-direction: column; gap: .6rem;
+  cursor: pointer; transition: border-color .2s, transform .15s;
+  text-decoration: none; color: var(--ink);
+}
+.tsg-card:hover { border-color: var(--clay); transform: translateY(-2px); }
+.tsg-icon { font-size: 1.6rem; }
+.tsg-name { font-size: .92rem; font-weight: 600; }
+.tsg-desc { font-size: .78rem; color: var(--muted); font-weight: 300; line-height: 1.5; }
+.tsg-tag {
+  margin-top: auto; align-self: flex-start;
+  font-size: .6rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  padding: .18rem .55rem; border-radius: 999px;
+}
+.tag-free { background: var(--green-l); color: var(--green); }
+.tag-premium { background: #fef0e8; color: var(--clay); }
+
+/* ─── HOW WE EARN (transparent monetisation) ─── */
+.monetisation {
+  background: var(--sand);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 5rem 2rem; position: relative; z-index: 1;
+}
+.mono-inner { max-width: 1200px; margin: 0 auto; }
+.mono-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 1.5rem; margin-top: 2.5rem;
+}
+.mono-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 8px; padding: 1.75rem;
+}
+.mono-icon { font-size: 1.8rem; margin-bottom: .85rem; }
+.mono-title { font-size: .95rem; font-weight: 600; margin-bottom: .5rem; }
+.mono-text { font-size: .82rem; color: var(--muted); font-weight: 300; line-height: 1.7; }
+
+/* ─── PAYMENT / PREMIUM SECTION ─── */
+.premium-section {
+  max-width: 1200px; margin: 0 auto; padding: 5rem 2rem;
+  position: relative; z-index: 1;
+}
+.premium-grid {
+  display: grid; grid-template-columns: 1fr 440px; gap: 5rem; align-items: center;
+  margin-top: 2.5rem;
+}
+.premium-left h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2.2rem; letter-spacing: -.02em; margin-bottom: 1rem; line-height: 1.1;
+}
+.premium-left p { font-size: .92rem; color: var(--muted); font-weight: 300; line-height: 1.8; margin-bottom: 1.5rem; }
+.feature-list { display: flex; flex-direction: column; gap: .6rem; }
+.fl-item {
+  display: flex; align-items: flex-start; gap: .65rem;
+  font-size: .88rem; color: var(--ink); padding: .65rem .85rem;
+  background: var(--sand); border-radius: var(--r);
+  border: 1px solid var(--border);
+}
+.fl-item::before { content: '→'; color: var(--clay); font-size: .8rem; flex-shrink: 0; margin-top: .1rem; }
+
+/* premium checkout form */
+.premium-form {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 8px; padding: 2rem;
+  box-shadow: 0 4px 20px rgba(28,24,20,.06);
+}
+.pf-title { font-family: 'DM Serif Display', serif; font-size: 1.4rem; margin-bottom: 1.5rem; }
+.fg { margin-bottom: .85rem; }
+.fl-label {
+  display: block; font-size: .68rem; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: .35rem;
+}
+.f-input {
+  width: 100%; padding: .75rem .95rem;
+  background: var(--sand); border: 1.5px solid var(--border);
+  border-radius: var(--r); color: var(--ink);
+  font-family: 'Outfit', sans-serif; font-size: .875rem;
+  outline: none; transition: border-color .2s;
+}
+.f-input:focus { border-color: var(--clay); background: var(--white); }
+.f-input::placeholder { color: var(--muted); }
+select.f-input { cursor: pointer; }
+select.f-input option { background: #fff; }
+.plan-options { display: flex; gap: .75rem; margin-bottom: .85rem; }
+.plan-opt {
+  flex: 1; border: 1.5px solid var(--border); border-radius: var(--r);
+  padding: .85rem; cursor: pointer; transition: all .15s; text-align: center;
+}
+.plan-opt:hover { border-color: var(--clay); background: #fef0e8; }
+.plan-opt.sel { border-color: var(--clay); background: #fef0e8; }
+.plan-opt .po-price { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: var(--clay); }
+.plan-opt .po-name { font-size: .72rem; color: var(--muted); margin-top: .2rem; }
+.order-box {
+  background: var(--sand); border: 1px solid var(--border);
+  border-radius: var(--r); padding: .9rem 1rem; margin-bottom: 1rem;
+}
+.ob-line {
+  display: flex; justify-content: space-between;
+  font-size: .8rem; padding: .3rem 0;
+  border-bottom: 1px solid var(--border); color: var(--muted);
+}
+.ob-line:last-child {
+  border-bottom: none; font-weight: 700; color: var(--ink); font-size: 1rem;
+  font-family: 'DM Serif Display', serif;
+}
+.ob-line:last-child span:last-child { color: var(--clay); }
+.btn-pay-premium {
+  width: 100%; background: var(--clay); color: #fff;
+  font-family: 'Outfit', sans-serif; font-weight: 600; font-size: .9rem;
+  letter-spacing: .03em; padding: 1rem; border-radius: var(--r);
+  border: none; cursor: pointer; transition: background .2s; margin-bottom: .6rem;
+}
+.btn-pay-premium:hover { background: var(--clay2); }
+.pay-secure-note {
+  text-align: center; font-size: .68rem; color: var(--muted); line-height: 1.7;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--ink); color: rgba(250,246,240,.5);
+  position: relative; z-index: 1;
+}
+.footer-top {
+  max-width: 1200px; margin: 0 auto; padding: 4rem 2rem 3rem;
+  display: grid; grid-template-columns: 300px 1fr 1fr 1fr; gap: 3rem;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.footer-logo {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.5rem; color: var(--cream); margin-bottom: .85rem;
+}
+.footer-desc { font-size: .78rem; line-height: 1.75; color: rgba(250,246,240,.4); margin-bottom: 1.25rem; }
+.footer-col-title {
+  font-size: .65rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(250,246,240,.3); margin-bottom: 1rem;
+}
+.footer-links { display: flex; flex-direction: column; gap: .5rem; }
+.footer-links a { font-size: .8rem; color: rgba(250,246,240,.4); text-decoration: none; transition: color .15s; }
+.footer-links a:hover { color: var(--cream); }
+.footer-bottom {
+  max-width: 1200px; margin: 0 auto; padding: 1.5rem 2rem;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: .75rem; font-size: .72rem;
+}
+.footer-bottom a { color: rgba(250,246,240,.3); text-decoration: none; }
+
+/* ─── MODAL ─── */
+.modal-bg {
+  display: none; position: fixed; inset: 0; z-index: 200;
+  background: rgba(28,24,20,.7); backdrop-filter: blur(4px);
+  align-items: center; justify-content: center; padding: 1rem;
+}
+.modal-bg.open { display: flex; }
+.modal-box {
+  background: var(--white); border-radius: 8px;
+  padding: 2.25rem; max-width: 440px; width: 100%;
+  position: relative; border-top: 3px solid var(--clay);
+  box-shadow: 0 20px 60px rgba(28,24,20,.2);
+}
+.modal-close {
+  position: absolute; top: 1rem; right: 1rem;
+  background: none; border: none; cursor: pointer;
+  font-size: 1.1rem; color: var(--muted);
+}
+.modal-close:hover { color: var(--ink); }
+.modal-tag { font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--clay); margin-bottom: .35rem; }
+.modal-title { font-family: 'DM Serif Display', serif; font-size: 1.4rem; margin-bottom: .35rem; }
+.modal-sub { font-size: .82rem; color: var(--muted); margin-bottom: 1.25rem; line-height: 1.6; }
+.m-input {
+  width: 100%; padding: .75rem .95rem;
+  background: var(--sand); border: 1.5px solid var(--border);
+  border-radius: var(--r); color: var(--ink);
+  font-family: 'Outfit', sans-serif; font-size: .875rem;
+  outline: none; transition: border-color .2s; margin-bottom: .75rem;
+}
+.m-input:focus { border-color: var(--clay); background: var(--white); }
+.m-input::placeholder { color: var(--muted); }
+.btn-modal-pay {
+  width: 100%; background: var(--clay); color: #fff;
+  font-family: 'Outfit', sans-serif; font-weight: 600; font-size: .9rem;
+  padding: 1rem; border-radius: var(--r); border: none; cursor: pointer;
+  transition: background .2s; margin-bottom: .6rem;
+}
+.btn-modal-pay:hover { background: var(--clay2); }
+.modal-secure { text-align: center; font-size: .68rem; color: var(--muted); line-height: 1.65; }
+
+/* ─── LOAD ANIMATIONS ─── */
+.hero-inner > * { opacity: 0; transform: translateY(18px); animation: riseUp .65s ease forwards; }
+.hero-inner > *:nth-child(1) { animation-delay: .1s; }
+.hero-inner > *:nth-child(2) { animation-delay: .25s; }
+@keyframes riseUp { to { opacity: 1; transform: translateY(0); } }
+
+/* ─── RESPONSIVE ─── */
+@media(max-width: 1024px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .page-body { grid-template-columns: 1fr; }
+  .sidebar { position: static; }
+  .premium-grid { grid-template-columns: 1fr; }
+  .mono-grid { grid-template-columns: 1fr 1fr; }
+  .footer-top { grid-template-columns: 1fr 1fr; }
+  nav .nav-links { display: none; }
+}
+@media(max-width: 700px) {
+  .hero-inner, .page-body, .tools-showcase, .premium-section, .monetisation { padding-left: 1.25rem; padding-right: 1.25rem; }
+  .tf-row { grid-template-columns: 1fr; }
+  .grade-row { grid-template-columns: 1fr 90px 70px; }
+  .rb-grid { grid-template-columns: 1fr 1fr; }
+  .plan-options { flex-direction: column; }
+  .mono-grid { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+  nav .nav-right .nav-search { display: none; }
+  .currency-display { grid-template-columns: 1fr; }
+  .cd-arrow { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ TOP BAR ═══ -->
+<div class="topbar">
+  Ghana's Free Calculator Suite &nbsp;·&nbsp; <strong>9 Tools</strong> &nbsp;·&nbsp; No Sign-up Required &nbsp;·&nbsp; <a href="#premium">Go Ad-Free from GH₵ 9/month</a>
+</div>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      CalcGH <span class="logo-badge">Free</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#tools" class="active">All Calculators</a></li>
+      <li><a href="#forex">Forex</a></li>
+      <li><a href="#waec">WAEC/BECE</a></li>
+      <li><a href="#finance">Finance</a></li>
+      <li><a href="#health">Health</a></li>
+      <li><a href="#business">Business</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="nav-search">
+        <span>🔍</span>
+        <input type="text" placeholder="Search tools...">
+      </div>
+      <button class="btn-premium" onclick="openModal()">Go Ad-Free</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<div class="hero">
+  <div class="hero-pattern"></div>
+  <div class="hero-grid-deco"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-label">Ghana's Calculator Suite · 100% Free</div>
+      <h1>Every Tool a<br>Ghanaian Needs,<br><em>Right Here.</em></h1>
+      <p class="hero-sub">
+        WAEC grade predictor, GHS currency converter, loan calculator, BMI tracker,
+        VAT calculator — all free, no sign-up, mobile-friendly.
+        Built for Ghanaian students, professionals, and business owners.
+      </p>
+      <div class="hero-stats">
+        <div class="hs-item"><div class="hs-num">9+</div><div class="hs-label">Free tools</div></div>
+        <div class="hs-item"><div class="hs-num">48k</div><div class="hs-label">Monthly users</div></div>
+        <div class="hs-item"><div class="hs-num">GH₵ 0</div><div class="hs-label">Cost forever</div></div>
+      </div>
+    </div>
+    <div class="hero-tools">
+      <div class="ht-label">Quick access</div>
+      <a href="#waec" class="ht-card">
+        <div class="ht-icon icon-gold">📋</div>
+        <div><div class="ht-name">WAEC Grade Calculator</div><div class="ht-desc">Predict your aggregate & qualify for university</div></div>
+        <span class="ht-arrow">→</span>
+      </a>
+      <a href="#forex" class="ht-card">
+        <div class="ht-icon icon-green">💱</div>
+        <div><div class="ht-name">GHS Currency Converter</div><div class="ht-desc">Live GHS ↔ USD, GBP, EUR, NGN rates</div></div>
+        <span class="ht-arrow">→</span>
+      </a>
+      <a href="#loan" class="ht-card">
+        <div class="ht-icon icon-blue">🏦</div>
+        <div><div class="ht-name">Ghana Loan Calculator</div><div class="ht-desc">Monthly repayments, total interest, amortisation</div></div>
+        <span class="ht-arrow">→</span>
+      </a>
+      <a href="#vat" class="ht-card">
+        <div class="ht-icon" style="background:#fef0e8">🧮</div>
+        <div><div class="ht-name">Ghana VAT Calculator</div><div class="ht-desc">NHIL, GETFL & standard VAT at 15%</div></div>
+        <span class="ht-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TOP AD BANNER ═══ -->
+<div style="max-width:1200px;margin:1.5rem auto 0;padding:0 2rem;position:relative;z-index:1">
+  <div class="ad-banner">
+    <div class="ad-label">Advertisement</div>
+    <div class="ad-placeholder ad-728">Google AdSense — 728×90 Leaderboard · Replace with: &lt;ins class="adsbygoogle"&gt;</div>
+  </div>
+</div>
+
+<!-- ═══ MAIN TOOLS + SIDEBAR ═══ -->
+<div class="page-body" id="tools">
+
+  <!-- TOOLS COLUMN -->
+  <div class="tools-col">
+    <div class="sec-label">Featured Calculators</div>
+    <h2 class="sec-h2">Free Tools for Ghana</h2>
+    <p class="sec-sub">All calculators work instantly in your browser. No account needed. Results are for guidance only.</p>
+
+    <div class="tools-grid">
+
+      <!-- ─── TOOL 1: WAEC GRADE CALCULATOR ─── -->
+      <div class="tool-card" id="waec">
+        <div class="tc-header">
+          <div class="tc-icon-wrap icon-gold">📋</div>
+          <div>
+            <div class="tc-title">WAEC / BECE Grade Aggregate Calculator</div>
+            <div class="tc-subtitle">Calculate your aggregate score and university qualifying grade</div>
+          </div>
+          <span class="tc-free-badge">Free</span>
+        </div>
+        <div class="tc-body">
+          <div class="tool-form">
+            <div style="font-size:.78rem;color:var(--muted);margin-bottom:.5rem">Enter your grades for your 6 best subjects (A1=1 to F9=9)</div>
+            <div class="grade-rows" id="waec-rows">
+              <div class="grade-row">
+                <span class="gr-subject">English Language</span>
+                <select class="gr-select" data-waec>
+                  <option value="1">A1 — Excellent</option><option value="2">B2 — Very Good</option>
+                  <option value="3">B3 — Good</option><option value="4">C4 — Credit</option>
+                  <option value="5">C5 — Credit</option><option value="6">C6 — Credit</option>
+                  <option value="7">D7 — Pass</option><option value="8">E8 — Pass</option>
+                  <option value="9">F9 — Fail</option>
+                </select>
+                <input class="gr-grade" type="number" min="1" max="9" value="2" placeholder="1–9">
+              </div>
+              <div class="grade-row">
+                <span class="gr-subject">Core Mathematics</span>
+                <select class="gr-select" data-waec>
+                  <option value="1">A1</option><option value="2" selected>B2</option>
+                  <option value="3">B3</option><option value="4">C4</option>
+                  <option value="5">C5</option><option value="6">C6</option>
+                  <option value="7">D7</option><option value="8">E8</option><option value="9">F9</option>
+                </select>
+                <input class="gr-grade" type="number" min="1" max="9" value="3">
+              </div>
+              <div class="grade-row">
+                <span class="gr-subject">Integrated Science</span>
+                <select class="gr-select" data-waec>
+                  <option value="1">A1</option><option value="2">B2</option>
+                  <option value="3" selected>B3</option><option value="4">C4</option>
+                  <option value="5">C5</option><option value="6">C6</option>
+                  <option value="7">D7</option><option value="8">E8</option><option value="9">F9</option>
+                </select>
+                <input class="gr-grade" type="number" min="1" max="9" value="3">
+              </div>
+              <div class="grade-row">
+                <span class="gr-subject">Social Studies</span>
+                <select class="gr-select" data-waec>
+                  <option value="1">A1</option><option value="2">B2</option>
+                  <option value="3">B3</option><option value="4" selected>C4</option>
+                  <option value="5">C5</option><option value="6">C6</option>
+                  <option value="7">D7</option><option value="8">E8</option><option value="9">F9</option>
+                </select>
+                <input class="gr-grade" type="number" min="1" max="9" value="4">
+              </div>
+              <div class="grade-row">
+                <span class="gr-subject">Elective Subject 1</span>
+                <select class="gr-select" data-waec>
+                  <option value="1">A1</option><option value="2" selected>B2</option>
+                  <option value="3">B3</option><option value="4">C4</option>
+                  <option value="5">C5</option><option value="6">C6</option>
+                  <option value="7">D7</option><option value="8">E8</option><option value="9">F9</option>
+                </select>
+                <input class="gr-grade" type="number" min="1" max="9" value="2">
+              </div>
+              <div class="grade-row">
+                <span class="gr-subject">Elective Subject 2</span>
+                <select class="gr-select" data-waec>
+                  <option value="1">A1</option><option value="2">B2</option>
+                  <option value="3" selected>B3</option><option value="4">C4</option>
+                  <option value="5">C5</option><option value="6">C6</option>
+                  <option value="7">D7</option><option value="8">E8</option><option value="9">F9</option>
+                </select>
+                <input class="gr-grade" type="number" min="1" max="9" value="3">
+              </div>
+            </div>
+            <button class="btn-calc" onclick="calcWAEC()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              Calculate Aggregate
+            </button>
+            <div class="result-box" id="waec-result">
+              <div class="rb-label">Your WASSCE Result</div>
+              <div class="rb-main" id="waec-agg">—</div>
+              <div class="rb-sub" id="waec-status">Enter grades above and click Calculate.</div>
+              <div class="rb-grid" id="waec-grid"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AD MID -->
+      <div class="ad-mid">
+        <div class="ad-banner">
+          <div class="ad-label">Advertisement — Support CalcGH by keeping us free</div>
+          <div class="ad-placeholder ad-728">Google AdSense — 728×90 · &lt;ins class="adsbygoogle" data-ad-slot="XXXXXXXXXX"&gt;</div>
+        </div>
+      </div>
+
+      <!-- ─── TOOL 2: CURRENCY CONVERTER ─── -->
+      <div class="tool-card" id="forex">
+        <div class="tc-header">
+          <div class="tc-icon-wrap icon-green">💱</div>
+          <div>
+            <div class="tc-title">Ghana Cedi (GHS) Currency Converter</div>
+            <div class="tc-subtitle">Convert GHS to USD, GBP, EUR, NGN, XOF and back</div>
+          </div>
+          <span class="tc-free-badge">Free</span>
+        </div>
+        <div class="tc-body">
+          <div class="tool-form">
+            <div class="tf-row">
+              <div class="tf-group">
+                <label>Amount</label>
+                <input type="number" class="tf-input" id="fx-amount" value="100" placeholder="Enter amount">
+              </div>
+              <div class="tf-group">
+                <label>Direction</label>
+                <select class="tf-select" id="fx-direction">
+                  <option value="from">GHS → Foreign</option>
+                  <option value="to">Foreign → GHS</option>
+                </select>
+              </div>
+            </div>
+            <div class="tf-group">
+              <label>Currency</label>
+              <select class="tf-select" id="fx-currency">
+                <option value="USD" data-rate="13.2">US Dollar (USD)</option>
+                <option value="GBP" data-rate="16.8">British Pound (GBP)</option>
+                <option value="EUR" data-rate="14.5">Euro (EUR)</option>
+                <option value="NGN" data-rate="0.0088">Nigerian Naira (NGN)</option>
+                <option value="XOF" data-rate="0.022">CFA Franc BCEAO (XOF)</option>
+                <option value="ZAR" data-rate="0.71">South African Rand (ZAR)</option>
+                <option value="CNY" data-rate="1.82">Chinese Yuan (CNY)</option>
+              </select>
+            </div>
+            <button class="btn-calc" onclick="calcFX()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              Convert Now
+            </button>
+            <div class="result-box" id="fx-result">
+              <div class="rb-label">Conversion Result</div>
+              <div class="currency-display">
+                <div class="cd-from">
+                  <div class="cd-amount" id="fx-from-val">100</div>
+                  <div class="cd-currency" id="fx-from-cur">Ghana Cedi (GHS)</div>
+                </div>
+                <div class="cd-arrow">⇌</div>
+                <div class="cd-to">
+                  <div class="cd-amount" id="fx-to-val">7.58</div>
+                  <div class="cd-currency" id="fx-to-cur">US Dollar (USD)</div>
+                </div>
+              </div>
+              <div class="rb-sub" id="fx-rate-note" style="margin-top:.85rem">
+                Indicative rate only. Check your bank or forex bureau for actual rates.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── TOOL 3: LOAN CALCULATOR ─── -->
+      <div class="tool-card" id="loan">
+        <div class="tc-header">
+          <div class="tc-icon-wrap icon-blue">🏦</div>
+          <div>
+            <div class="tc-title">Ghana Loan / Mortgage Calculator</div>
+            <div class="tc-subtitle">Monthly repayments, total interest, and full amortisation</div>
+          </div>
+          <span class="tc-free-badge">Free</span>
+        </div>
+        <div class="tc-body">
+          <div class="tool-form">
+            <div class="tf-row">
+              <div class="tf-group">
+                <label>Loan Amount (GHS)</label>
+                <input type="number" class="tf-input" id="loan-amount" value="10000" placeholder="e.g. 10000">
+              </div>
+              <div class="tf-group">
+                <label>Interest Rate (% per year)</label>
+                <input type="number" class="tf-input" id="loan-rate" value="28" placeholder="e.g. 28" step="0.1">
+              </div>
+            </div>
+            <div class="tf-row">
+              <div class="tf-group">
+                <label>Loan Term (months)</label>
+                <input type="number" class="tf-input" id="loan-term" value="24" placeholder="e.g. 24">
+              </div>
+              <div class="tf-group">
+                <label>Loan Type</label>
+                <select class="tf-select" id="loan-type">
+                  <option value="reducing">Reducing Balance</option>
+                  <option value="flat">Flat Rate</option>
+                </select>
+              </div>
+            </div>
+            <button class="btn-calc" onclick="calcLoan()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              Calculate Repayment
+            </button>
+            <div class="result-box" id="loan-result">
+              <div class="rb-label">Loan Repayment Breakdown</div>
+              <div class="rb-main" id="loan-monthly">—</div>
+              <div class="rb-sub">Monthly payment</div>
+              <div class="rb-grid">
+                <div class="rb-cell highlight">
+                  <div class="rb-cell-val" id="loan-total">—</div>
+                  <div class="rb-cell-label">Total Repayment</div>
+                </div>
+                <div class="rb-cell">
+                  <div class="rb-cell-val" id="loan-interest">—</div>
+                  <div class="rb-cell-label">Total Interest</div>
+                </div>
+                <div class="rb-cell">
+                  <div class="rb-cell-val" id="loan-rate-eff">—</div>
+                  <div class="rb-cell-label">Effective Rate</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── TOOL 4: VAT CALCULATOR ─── -->
+      <div class="tool-card" id="vat">
+        <div class="tc-header">
+          <div class="tc-icon-wrap" style="background:#fef0e8">🧮</div>
+          <div>
+            <div class="tc-title">Ghana VAT Calculator (2024 Rates)</div>
+            <div class="tc-subtitle">Includes VAT 15%, NHIL 2.5%, GETFL 1% and COVID Levy</div>
+          </div>
+          <span class="tc-free-badge">Free</span>
+        </div>
+        <div class="tc-body">
+          <div class="tool-form">
+            <div class="tf-row">
+              <div class="tf-group">
+                <label>Amount (GHS)</label>
+                <input type="number" class="tf-input" id="vat-amount" value="500" placeholder="e.g. 500">
+              </div>
+              <div class="tf-group">
+                <label>Calculation Type</label>
+                <select class="tf-select" id="vat-type">
+                  <option value="add">Add VAT (excl. → incl.)</option>
+                  <option value="remove">Remove VAT (incl. → excl.)</option>
+                </select>
+              </div>
+            </div>
+            <div class="tf-group">
+              <label>Tax Category</label>
+              <select class="tf-select" id="vat-cat">
+                <option value="standard">Standard Rate (VAT + NHIL + GETFL = 18.5%)</option>
+                <option value="nhil">NHIL + GETFL only (3.5%)</option>
+                <option value="vat">VAT only (15%)</option>
+                <option value="covid">COVID Levy included (19.25% + 1%)</option>
+              </select>
+            </div>
+            <button class="btn-calc" onclick="calcVAT()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              Calculate Tax
+            </button>
+            <div class="result-box" id="vat-result">
+              <div class="rb-label">Ghana Tax Breakdown</div>
+              <div class="rb-main" id="vat-total">—</div>
+              <div class="rb-sub" id="vat-label-sub">Total inclusive of all applicable taxes</div>
+              <div class="rb-grid">
+                <div class="rb-cell">
+                  <div class="rb-cell-val" id="vat-base">—</div>
+                  <div class="rb-cell-label">Base Amount</div>
+                </div>
+                <div class="rb-cell">
+                  <div class="rb-cell-val" id="vat-vat">—</div>
+                  <div class="rb-cell-label">VAT (15%)</div>
+                </div>
+                <div class="rb-cell">
+                  <div class="rb-cell-val" id="vat-levies">—</div>
+                  <div class="rb-cell-label">NHIL + GETFL</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AD BOTTOM -->
+      <div class="ad-mid">
+        <div class="ad-banner">
+          <div class="ad-label">Advertisement</div>
+          <div class="ad-placeholder ad-728">Google AdSense — 728×90 · &lt;ins class="adsbygoogle" data-ad-slot="XXXXXXXXXX"&gt;</div>
+        </div>
+      </div>
+
+      <!-- ─── TOOL 5: BMI ─── -->
+      <div class="tool-card" id="health">
+        <div class="tc-header">
+          <div class="tc-icon-wrap" style="background:#fdf0ee">🏃</div>
+          <div>
+            <div class="tc-title">BMI Calculator</div>
+            <div class="tc-subtitle">Body Mass Index with weight category and health advice</div>
+          </div>
+          <span class="tc-free-badge">Free</span>
+        </div>
+        <div class="tc-body">
+          <div class="tool-form">
+            <div class="tf-row">
+              <div class="tf-group">
+                <label>Weight (kg)</label>
+                <input type="number" class="tf-input" id="bmi-weight" value="72" placeholder="e.g. 72">
+              </div>
+              <div class="tf-group">
+                <label>Height (cm)</label>
+                <input type="number" class="tf-input" id="bmi-height" value="172" placeholder="e.g. 172">
+              </div>
+            </div>
+            <div class="tf-row">
+              <div class="tf-group">
+                <label>Age</label>
+                <input type="number" class="tf-input" id="bmi-age" value="28" placeholder="e.g. 28">
+              </div>
+              <div class="tf-group">
+                <label>Sex</label>
+                <select class="tf-select" id="bmi-sex">
+                  <option>Male</option><option>Female</option>
+                </select>
+              </div>
+            </div>
+            <button class="btn-calc" onclick="calcBMI()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              Calculate BMI
+            </button>
+            <div class="result-box" id="bmi-result">
+              <div class="rb-label">Your BMI Result</div>
+              <div class="rb-main" id="bmi-val">—</div>
+              <div class="rb-sub" id="bmi-cat">—</div>
+              <div class="rb-grid">
+                <div class="rb-cell"><div class="rb-cell-val" id="bmi-ideal-low">—</div><div class="rb-cell-label">Ideal Min (kg)</div></div>
+                <div class="rb-cell highlight"><div class="rb-cell-val" id="bmi-ideal">—</div><div class="rb-cell-label">Ideal Weight</div></div>
+                <div class="rb-cell"><div class="rb-cell-val" id="bmi-ideal-high">—</div><div class="rb-cell-label">Ideal Max (kg)</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /tools-grid -->
+  </div><!-- /tools-col -->
+
+  <!-- SIDEBAR -->
+  <div class="sidebar-col">
+    <div class="sidebar">
+
+      <!-- Ad square -->
+      <div class="ad-banner">
+        <div class="ad-label">Advertisement</div>
+        <div class="ad-placeholder ad-sidebar">Google AdSense — 300×250 Medium Rectangle<br><br>&lt;ins class="adsbygoogle"<br>data-ad-slot="XXXXXXXXXX"<br>data-ad-format="rectangle"&gt;</div>
+      </div>
+
+      <!-- Popular tools -->
+      <div class="sw">
+        <div class="sw-head">Most Used Today <a href="#tools">See all</a></div>
+        <div class="sw-body">
+          <div class="pop-list">
+            <a href="#waec" class="pop-item"><span class="pop-num">1</span><div><div class="pop-name">WAEC Aggregate</div><div class="pop-uses">12,400 uses today</div></div></a>
+            <a href="#forex" class="pop-item"><span class="pop-num">2</span><div><div class="pop-name">GHS/USD Converter</div><div class="pop-uses">8,200 uses today</div></div></a>
+            <a href="#loan" class="pop-item"><span class="pop-num">3</span><div><div class="pop-name">Loan Calculator</div><div class="pop-uses">6,100 uses today</div></div></a>
+            <a href="#vat" class="pop-item"><span class="pop-num">4</span><div><div class="pop-name">VAT Calculator</div><div class="pop-uses">4,800 uses today</div></div></a>
+            <a href="#health" class="pop-item"><span class="pop-num">5</span><div><div class="pop-name">BMI Calculator</div><div class="pop-uses">3,200 uses today</div></div></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live rates widget -->
+      <div class="sw">
+        <div class="sw-head">Live GHS Rates <span style="font-size:.62rem;font-weight:400;color:var(--muted)">Indicative</span></div>
+        <div class="sw-body">
+          <table class="rate-table">
+            <tr><th>Pair</th><th>Rate</th><th>Chg</th></tr>
+            <tr><td>GHS/USD</td><td>13.20</td><td class="rate-down">▼ 0.12</td></tr>
+            <tr><td>GHS/GBP</td><td>16.85</td><td class="rate-up">▲ 0.08</td></tr>
+            <tr><td>GHS/EUR</td><td>14.52</td><td class="rate-down">▼ 0.06</td></tr>
+            <tr><td>GHS/NGN</td><td>0.0088</td><td class="rate-up">▲ 0.0002</td></tr>
+            <tr><td>GHS/XOF</td><td>0.022</td><td>—</td></tr>
+          </table>
+          <p style="font-size:.62rem;color:var(--muted);margin-top:.6rem">Indicative only. Not financial advice.</p>
+        </div>
+      </div>
+
+      <!-- Premium box -->
+      <div class="premium-box">
+        <span class="pb-badge">Premium</span>
+        <div class="pb-title">Remove Ads.<br>Unlock All Tools.</div>
+        <div class="pb-features">
+          <div class="pb-feat">Ad-free experience</div>
+          <div class="pb-feat">Full WAEC history predictor</div>
+          <div class="pb-feat">PDF export of all results</div>
+          <div class="pb-feat">Save calculation history</div>
+          <div class="pb-feat">All 25+ premium tools</div>
+          <div class="pb-feat">Priority support</div>
+        </div>
+        <div class="pb-price">GH₵ 9</div>
+        <div class="pb-price-note">per month · pay with MoMo</div>
+        <div class="momo-chips">
+          <span class="momo-chip chip-mtn"><span class="dot"></span>MTN MoMo</span>
+          <span class="momo-chip chip-voda"><span class="dot"></span>Vodafone</span>
+          <span class="momo-chip chip-airt"><span class="dot"></span>AirtelTigo</span>
+        </div>
+        <button class="btn-upgrade" onclick="openModal()">Upgrade Now →</button>
+      </div>
+
+      <!-- Second ad -->
+      <div class="ad-banner">
+        <div class="ad-label">Advertisement</div>
+        <div class="ad-placeholder ad-300">Google AdSense — 300×250<br>&lt;ins class="adsbygoogle"<br>data-ad-slot="XXXXXXXXXX"&gt;</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ALL TOOLS SHOWCASE ═══ -->
+<div class="tools-showcase">
+  <div class="sec-label">Complete Library</div>
+  <h2 class="sec-h2">All 9+ Free Calculators</h2>
+  <div class="tools-showcase-grid">
+    <a href="#waec" class="tsg-card"><div class="tsg-icon">📋</div><div class="tsg-name">WAEC Aggregate</div><div class="tsg-desc">Calculate university qualifying aggregate from WASSCE grades</div><span class="tsg-tag tag-free">Free</span></a>
+    <a href="#forex" class="tsg-card"><div class="tsg-icon">💱</div><div class="tsg-name">Currency Converter</div><div class="tsg-desc">GHS to USD, GBP, EUR, NGN and 20+ currencies</div><span class="tsg-tag tag-free">Free</span></a>
+    <a href="#loan" class="tsg-card"><div class="tsg-icon">🏦</div><div class="tsg-name">Loan Calculator</div><div class="tsg-desc">Monthly payments and full amortisation schedule</div><span class="tsg-tag tag-free">Free</span></a>
+    <a href="#vat" class="tsg-card"><div class="tsg-icon">🧮</div><div class="tsg-name">VAT Calculator</div><div class="tsg-desc">Ghana VAT + NHIL + GETFL at current rates</div><span class="tsg-tag tag-free">Free</span></a>
+    <a href="#health" class="tsg-card"><div class="tsg-icon">🏃</div><div class="tsg-name">BMI Calculator</div><div class="tsg-desc">Body Mass Index with ideal weight range</div><span class="tsg-tag tag-free">Free</span></a>
+    <a href="#" class="tsg-card"><div class="tsg-icon">📊</div><div class="tsg-name">BECE Grading</div><div class="tsg-desc">Basic Education Certificate Examination grades</div><span class="tsg-tag tag-free">Free</span></a>
+    <a href="#" class="tsg-card"><div class="tsg-icon">🏠</div><div class="tsg-name">Rent-to-Buy</div><div class="tsg-desc">Compare renting vs buying a home in Ghana</div><span class="tsg-tag tag-premium">Premium</span></a>
+    <a href="#" class="tsg-card"><div class="tsg-icon">📈</div><div class="tsg-name">Salary Tax (PAYE)</div><div class="tsg-desc">Ghana income tax & SSNIT deductions calculator</div><span class="tsg-tag tag-premium">Premium</span></a>
+    <a href="#" class="tsg-card"><div class="tsg-icon">🌾</div><div class="tsg-name">Farm ROI</div><div class="tsg-desc">Agricultural profitability estimator for Ghana</div><span class="tsg-tag tag-premium">Premium</span></a>
+  </div>
+</div>
+
+<!-- ═══ HOW WE EARN ═══ -->
+<div class="monetisation">
+  <div class="mono-inner">
+    <div class="sec-label">How CalcGH Stays Free</div>
+    <h2 class="sec-h2">Free Forever. Here's How.</h2>
+    <p class="sec-sub" style="max-width:540px">CalcGH will always have free tools. We're transparent about how we keep the lights on.</p>
+    <div class="mono-grid">
+      <div class="mono-card">
+        <div class="mono-icon">📣</div>
+        <div class="mono-title">Google AdSense</div>
+        <div class="mono-text">Non-intrusive ads placed around the tools fund our hosting and development. You can remove them for GH₵ 9/month with a Premium account.</div>
+      </div>
+      <div class="mono-card">
+        <div class="mono-icon">⭐</div>
+        <div class="mono-title">Premium Membership</div>
+        <div class="mono-text">Power users upgrade to remove ads, access 25+ tools, export results as PDF, and save their calculation history. Paid via MoMo from GH₵ 9/month.</div>
+      </div>
+      <div class="mono-card">
+        <div class="mono-icon">🤝</div>
+        <div class="mono-title">Sponsored Tools</div>
+        <div class="mono-text">Banks, fintechs, and educational institutions can sponsor specific calculators with a branded placement. Contact us to partner.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PREMIUM SECTION ═══ -->
+<div class="premium-section" id="premium">
+  <div class="sec-label">Premium Plan</div>
+  <h2 class="sec-h2">Upgrade to Ad-Free</h2>
+  <div class="premium-grid">
+    <div class="premium-left">
+      <h3>More Tools.<br>No Ads.<br>Your History Saved.</h3>
+      <p>Premium members get instant access to every tool — including PAYE salary calculator, farm ROI estimator, rent-vs-buy, and BECE grade predictor. All results exportable as PDF. Pay once a month via MoMo. Cancel anytime.</p>
+      <div class="feature-list">
+        <div class="fl-item">Ad-free experience across all 25+ tools</div>
+        <div class="fl-item">Full calculation history saved to your account</div>
+        <div class="fl-item">Export any result as a PDF for sharing</div>
+        <div class="fl-item">PAYE / income tax calculator (Ghana 2024 rates)</div>
+        <div class="fl-item">Farm profitability & agribusiness tools</div>
+        <div class="fl-item">Priority WhatsApp support</div>
+        <div class="fl-item">Monthly GHS exchange rate report emailed to you</div>
+      </div>
+    </div>
+    <div>
+      <div class="premium-form">
+        <div class="pf-title">Choose Your Plan</div>
+        <div class="plan-options">
+          <div class="plan-opt sel" onclick="selectPlan(this,'9','Monthly')">
+            <div class="po-price">GH₵ 9</div>
+            <div class="po-name">Monthly</div>
+          </div>
+          <div class="plan-opt" onclick="selectPlan(this,'79','Yearly')">
+            <div class="po-price">GH₵ 79</div>
+            <div class="po-name">Yearly · Save 27%</div>
+          </div>
+          <div class="plan-opt" onclick="selectPlan(this,'149','Lifetime')">
+            <div class="po-price">GH₵ 149</div>
+            <div class="po-name">Lifetime</div>
+          </div>
+        </div>
+        <div class="fg">
+          <label class="fl-label">Full Name</label>
+          <input type="text" class="f-input" placeholder="Kwame Mensah" id="p-name">
+        </div>
+        <div class="fg">
+          <label class="fl-label">Email Address</label>
+          <input type="email" class="f-input" placeholder="kwame@gmail.com" id="p-email">
+        </div>
+        <div class="fg">
+          <label class="fl-label">Phone Number</label>
+          <input type="tel" class="f-input" placeholder="0244 000 000" id="p-phone">
+        </div>
+        <div class="momo-chips" style="margin-bottom:1rem">
+          <span class="momo-chip chip-mtn"><span class="dot"></span>MTN MoMo</span>
+          <span class="momo-chip chip-voda"><span class="dot"></span>Vodafone Cash</span>
+          <span class="momo-chip chip-airt"><span class="dot"></span>AirtelTigo</span>
+        </div>
+        <div class="order-box">
+          <div class="ob-line"><span>Plan</span><span id="o-plan">Monthly Premium</span></div>
+          <div class="ob-line"><span>Access</span><span>All 25+ tools · Ad-free</span></div>
+          <div class="ob-line"><span>Total</span><span id="o-total">GH₵ 9</span></div>
+        </div>
+        <button class="btn-pay-premium" onclick="payWithFlutterwave()">Pay with Flutterwave</button>
+        <div class="pay-secure-note">
+          Secured by Flutterwave · MTN MoMo, Vodafone Cash & AirtelTigo<br>
+          Cancel anytime · Access granted within 60 seconds
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">CalcGH</div>
+      <div class="footer-desc">Ghana's free calculator suite. Tools for students, businesses, and everyday Ghanaians. Built and maintained from Accra.</div>
+    </div>
+    <div>
+      <div class="footer-col-title">Calculators</div>
+      <div class="footer-links">
+        <a href="#waec">WAEC Aggregate</a>
+        <a href="#forex">Currency Converter</a>
+        <a href="#loan">Loan Calculator</a>
+        <a href="#vat">VAT Calculator</a>
+        <a href="#health">BMI Calculator</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Premium</div>
+      <div class="footer-links">
+        <a href="#premium">Upgrade Account</a>
+        <a href="#premium">PAYE Calculator</a>
+        <a href="#premium">Farm ROI Tool</a>
+        <a href="#premium">Salary Tax</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Info</div>
+      <div class="footer-links">
+        <a href="#">About CalcGH</a>
+        <a href="#">Advertise with Us</a>
+        <a href="https://wa.me/233200000000">WhatsApp Support</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Use</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 CalcGH · Built in Accra, Ghana · Built by Deon with Love · All calculators for guidance only</span>
+    <div style="display:flex;gap:1.5rem">
+      <a href="#">Privacy</a><a href="#">Terms</a><a href="#">Advertise</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══ PREMIUM MODAL ═══ -->
+<div class="modal-bg" id="modal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-tag">Premium · Ad-Free Access</div>
+    <div class="modal-title">Upgrade CalcGH Premium</div>
+    <div class="modal-sub">Remove ads and unlock all 25+ tools. Pay monthly with MoMo.</div>
+    <div class="momo-chips" style="margin-bottom:1.1rem">
+      <span class="momo-chip chip-mtn"><span class="dot"></span>MTN MoMo</span>
+      <span class="momo-chip chip-voda"><span class="dot"></span>Vodafone Cash</span>
+      <span class="momo-chip chip-airt"><span class="dot"></span>AirtelTigo</span>
+    </div>
+    <input type="text" class="m-input" placeholder="Full Name" id="m-name">
+    <input type="email" class="m-input" placeholder="your@email.com" id="m-email">
+    <input type="tel" class="m-input" placeholder="Phone Number" id="m-phone">
+    <select class="m-input" id="m-plan" style="background:var(--sand);border:1.5px solid var(--border);border-radius:var(--r);color:var(--ink);font-family:'Outfit',sans-serif;font-size:.875rem;outline:none;margin-bottom:.75rem;padding:.75rem .95rem;width:100%;cursor:pointer">
+      <option value="9">Monthly — GH₵ 9/month</option>
+      <option value="79">Yearly — GH₵ 79/year (save 27%)</option>
+      <option value="149">Lifetime — GH₵ 149 once</option>
+    </select>
+    <button class="btn-modal-pay" onclick="payWithFlutterwaveModal()">
+      Pay GH₵ <span id="m-amount">9</span> — Go Ad-Free
+    </button>
+    <div class="modal-secure">
+      Secured by Flutterwave · Access granted within 60 seconds<br>
+      Cancel monthly plan anytime · No hidden fees
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CALCULATOR JS ═══ -->
+<script src="https://checkout.flutterwave.com/v3.js"></script>
+<script>
+const FLUTTERWAVE_PUBLIC_KEY = 'FLWPUBK_TEST_REPLACE_WITH_YOUR_FLUTTERWAVE_PUBLIC_KEY';
+
+// ─── WAEC CALCULATOR ───
+function calcWAEC() {
+  const selects = document.querySelectorAll('[data-waec]');
+  let total = 0, count = 0;
+  selects.forEach(s => { total += parseInt(s.value); count++; });
+  const agg = total;
+  document.getElementById('waec-agg').textContent = 'Aggregate: ' + agg;
+
+  let status = '', color = '';
+  if (agg <= 6)        { status = 'First Class — Excellent admission prospects to any university'; color = '#2d6a4f'; }
+  else if (agg <= 12)  { status = 'Second Class Upper — Strong admission prospects'; color = '#2d6a4f'; }
+  else if (agg <= 18)  { status = 'Second Class Lower — Good prospects for most programmes'; color = '#b8860b'; }
+  else if (agg <= 24)  { status = 'Third Class — Eligible for some programmes'; color = '#e67e22'; }
+  else if (agg <= 30)  { status = 'Pass — Limited options, consider private universities'; color = '#c0392b'; }
+  else                 { status = 'Not qualified for direct admission — consider re-sitting'; color = '#c0392b'; }
+
+  const rb = document.getElementById('waec-result');
+  const aggEl = document.getElementById('waec-agg');
+  aggEl.textContent = 'Aggregate: ' + agg + '/54';
+  aggEl.style.color = color;
+  document.getElementById('waec-status').textContent = status;
+  rb.classList.add('show');
+}
+
+// ─── CURRENCY CONVERTER ───
+function calcFX() {
+  const amount = parseFloat(document.getElementById('fx-amount').value) || 0;
+  const dir = document.getElementById('fx-direction').value;
+  const sel = document.getElementById('fx-currency');
+  const opt = sel.options[sel.selectedIndex];
+  const rate = parseFloat(opt.getAttribute('data-rate'));
+  const code = opt.value;
+
+  let fromVal, toVal, fromCur, toCur;
+  if (dir === 'from') {
+    fromVal = amount; toVal = (amount / rate).toFixed(4);
+    fromCur = 'Ghana Cedi (GHS)'; toCur = opt.text;
+  } else {
+    fromVal = amount; toVal = (amount * rate).toFixed(2);
+    fromCur = opt.text; toCur = 'Ghana Cedi (GHS)';
+  }
+
+  document.getElementById('fx-from-val').textContent = fromVal.toLocaleString();
+  document.getElementById('fx-to-val').textContent = parseFloat(toVal).toLocaleString();
+  document.getElementById('fx-from-cur').textContent = fromCur;
+  document.getElementById('fx-to-cur').textContent = toCur;
+  document.getElementById('fx-rate-note').textContent =
+    '1 GHS ≈ ' + (1/rate).toFixed(4) + ' ' + code + ' (indicative rate — check your bank for actual rates)';
+  document.getElementById('fx-result').classList.add('show');
+}
+
+// ─── LOAN CALCULATOR ───
+function calcLoan() {
+  const P = parseFloat(document.getElementById('loan-amount').value) || 0;
+  const r = parseFloat(document.getElementById('loan-rate').value) / 100 / 12;
+  const n = parseInt(document.getElementById('loan-term').value) || 1;
+  const type = document.getElementById('loan-type').value;
+
+  let monthly, totalPay, totalInterest;
+  if (type === 'reducing') {
+    if (r === 0) { monthly = P / n; }
+    else { monthly = P * r * Math.pow(1+r,n) / (Math.pow(1+r,n)-1); }
+    totalPay = monthly * n;
+    totalInterest = totalPay - P;
+  } else {
+    const flatRate = parseFloat(document.getElementById('loan-rate').value) / 100;
+    totalInterest = P * flatRate * (n/12);
+    totalPay = P + totalInterest;
+    monthly = totalPay / n;
+  }
+
+  const fmt = v => 'GH₵ ' + v.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  document.getElementById('loan-monthly').textContent = fmt(monthly) + '/mo';
+  document.getElementById('loan-total').textContent = fmt(totalPay);
+  document.getElementById('loan-interest').textContent = fmt(totalInterest);
+  document.getElementById('loan-rate-eff').textContent =
+    ((totalInterest/P/n*12)*100).toFixed(1) + '%';
+  document.getElementById('loan-result').classList.add('show');
+}
+
+// ─── VAT CALCULATOR ───
+function calcVAT() {
+  const amount = parseFloat(document.getElementById('vat-amount').value) || 0;
+  const type = document.getElementById('vat-type').value;
+  const cat = document.getElementById('vat-cat').value;
+
+  const rates = {
+    standard: { vat: .15, nhil: .025, getfl: .01, covid: 0 },
+    nhil:     { vat: 0,   nhil: .025, getfl: .01, covid: 0 },
+    vat:      { vat: .15, nhil: 0,    getfl: 0,   covid: 0 },
+    covid:    { vat: .15, nhil: .025, getfl: .01, covid: .01 }
+  };
+  const r = rates[cat];
+  const totalRate = r.vat + r.nhil + r.getfl + r.covid;
+
+  let base, vatAmt, levies, total;
+  if (type === 'add') {
+    base = amount;
+    vatAmt = base * r.vat;
+    levies = base * (r.nhil + r.getfl + r.covid);
+    total = base + vatAmt + levies;
+  } else {
+    total = amount;
+    base = amount / (1 + totalRate);
+    vatAmt = base * r.vat;
+    levies = base * (r.nhil + r.getfl + r.covid);
+  }
+
+  const fmt = v => 'GH₵ ' + v.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  document.getElementById('vat-total').textContent = fmt(type === 'add' ? total : amount);
+  document.getElementById('vat-base').textContent = fmt(base);
+  document.getElementById('vat-vat').textContent = fmt(vatAmt);
+  document.getElementById('vat-levies').textContent = fmt(levies);
+  document.getElementById('vat-label-sub').textContent =
+    type === 'add' ? 'Total including all taxes (base + ' + (totalRate*100).toFixed(2) + '%)' :
+                     'Tax-exclusive base amount extracted';
+  document.getElementById('vat-result').classList.add('show');
+}
+
+// ─── BMI CALCULATOR ───
+function calcBMI() {
+  const weight = parseFloat(document.getElementById('bmi-weight').value) || 0;
+  const height = parseFloat(document.getElementById('bmi-height').value) / 100 || 1;
+  const bmi = weight / (height * height);
+
+  let cat = '', color = '';
+  if      (bmi < 18.5) { cat = 'Underweight — consider nutritional review'; color = '#3498db'; }
+  else if (bmi < 25)   { cat = 'Normal weight — healthy range'; color = '#2d6a4f'; }
+  else if (bmi < 30)   { cat = 'Overweight — lifestyle adjustments recommended'; color = '#b8860b'; }
+  else if (bmi < 35)   { cat = 'Obese Class I — consult a healthcare provider'; color = '#e67e22'; }
+  else                 { cat = 'Obese Class II/III — medical attention advised'; color = '#c0392b'; }
+
+  const idealMid = 22 * (height * height);
+  const idealLow = 18.5 * (height * height);
+  const idealHigh = 24.9 * (height * height);
+
+  const bmiEl = document.getElementById('bmi-val');
+  bmiEl.textContent = bmi.toFixed(1);
+  bmiEl.style.color = color;
+  document.getElementById('bmi-cat').textContent = cat;
+  document.getElementById('bmi-ideal').textContent = idealMid.toFixed(1) + 'kg';
+  document.getElementById('bmi-ideal-low').textContent = idealLow.toFixed(1) + 'kg';
+  document.getElementById('bmi-ideal-high').textContent = idealHigh.toFixed(1) + 'kg';
+  document.getElementById('bmi-result').classList.add('show');
+}
+
+// ─── PLAN SELECTOR ───
+let currentPlanAmount = 900;
+let currentPlanName = 'Monthly Premium';
+
+function selectPlan(el, amount, name) {
+  document.querySelectorAll('.plan-opt').forEach(p => p.classList.remove('sel'));
+  el.classList.add('sel');
+  currentPlanAmount = parseInt(amount) * 100;
+  currentPlanName = name + ' Premium';
+  document.getElementById('o-plan').textContent = name + ' Premium';
+  document.getElementById('o-total').textContent = 'GH₵ ' + amount;
+}
+
+// ─── MODAL ───
+function openModal() { document.getElementById('modal').classList.add('open'); }
+function closeModal() { document.getElementById('modal').classList.remove('open'); }
+document.getElementById('modal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+document.getElementById('m-plan').addEventListener('change', function() {
+  document.getElementById('m-amount').textContent = this.value;
+});
+
+// ─── FLUTTERWAVE PAYMENT ───
+function payWithFlutterwaveModal() {
+  const email  = document.getElementById('m-email').value.trim();
+  const name   = document.getElementById('m-name').value.trim();
+  const phone  = document.getElementById('m-phone').value.trim();
+  const plan   = document.getElementById('m-plan');
+  const amount = parseInt(plan.value);
+  const planName = plan.options[plan.selectedIndex].text.split('—')[0].trim();
+  if (!email || !name || !phone) { alert('Please enter your name, email, and phone number.'); return; }
+
+  FlutterwaveCheckout({
+    public_key: FLUTTERWAVE_PUBLIC_KEY,
+    tx_ref: 'CGH_' + Date.now(),
+    amount: amount,
+    currency: 'GHS',
+    payment_options: 'mobilemoneyghana,card',
+    customer: {
+      email: email,
+      name: name,
+      phone: phone
+    },
+    customizations: {
+      title: 'CalcGH Premium',
+      description: planName,
+      logo: ''
+    },
+    callback: function(data) {
+      closeModal();
+      alert('✓ Payment confirmed!\nReference: ' + data.tx_ref +
+        '\n\nYour CalcGH Premium is now active.\nConfirmation sent to: ' + email);
+    },
+    onclose: function() {}
+  });
+}
+
+function payWithFlutterwave() {
+  const email  = document.getElementById('p-email').value.trim();
+  const name   = document.getElementById('p-name').value.trim();
+  const phone  = document.getElementById('p-phone').value.trim();
+  if (!email || !name || !phone) { alert('Please enter your name, email, and phone number.'); return; }
+
+  FlutterwaveCheckout({
+    public_key: FLUTTERWAVE_PUBLIC_KEY,
+    tx_ref: 'CGH_' + Date.now(),
+    amount: currentPlanAmount,
+    currency: 'GHS',
+    payment_options: 'mobilemoneyghana,card',
+    customer: {
+      email: email,
+      name: name,
+      phone: phone
+    },
+    customizations: {
+      title: 'CalcGH Premium',
+      description: currentPlanName,
+      logo: ''
+    },
+    callback: function(data) {
+      closeModal();
+      alert('✓ Payment confirmed!\nReference: ' + data.tx_ref +
+        '\n\nYour CalcGH Premium is now active.\nConfirmation sent to: ' + email);
+    },
+    onclose: function() {}
+  });
+}
+</script>
+
+<!--
+=================================================================
+  CALCGH — FREE TOOL + AD REVENUE SITE
+  Zero-Cost WordPress Deployment Guide
+  Astra/OceanWP · Free Plugins · Google AdSense · Mobile Money
+=================================================================
+
+HOW THE MONEY WORKS
+---------------------
+This site earns from THREE streams — all passive:
+
+  1. GOOGLE ADSENSE (main income)
+     Every page view earns ad revenue. High-intent Ghana
+     queries ("WAEC aggregate calculator", "Ghana loan
+     calculator") have decent CPMs. At 10,000 sessions/day:
+     → Ghana AdSense CPM: $0.30–0.80
+     → 10k sessions × $0.50 CPM × 3 ad units = ~$15/day
+     → Monthly: ~$450 (GH₵ 5,900/mo)
+     
+     Scale to 30k daily sessions = ~GH₵ 17,000/mo
+
+  2. MOBILE MONEY PREMIUM (GH₵ 9–149 one-off)
+     Even 100 premium subscribers at GH₵ 9/mo = GH₵ 900/mo
+     Direct MTN MoMo, Vodafone Cash, AirtelTigo payments.
+
+  3. SPONSORED TOOLS
+     Banks, fintech, and ed-tech companies pay to have
+     their brand on specific calculators.
+     GH₵ 500–2,000/month per sponsor.
+
+TOTAL POTENTIAL: GH₵ 5,000–20,000/month at scale.
+UPFRONT COST: GH₵ 0.
+
+=================================================================
+
+STEP 1 — FREE HOSTING
+-----------------------
+InfinityFree (recommended):
+  1. infinityfree.com → Sign Up → Create Account
+  2. Choose subdomain: calcgh.infinityfreeapp.com
+     OR free domain at freenom.com → calcgh.tk
+  3. Note cPanel login
+
+IMPORTANT FOR ADSENSE: Google AdSense requires a real,
+  indexed site. InfinityFree works but for faster AdSense
+  approval, consider upgrading to paid hosting ($2/mo)
+  once you're ready to monetise.
+
+STEP 2 — INSTALL WORDPRESS
+-----------------------------
+  1. cPanel → Softaculous → WordPress → Install
+  2. Site Name: CalcGH · Admin email · Strong password
+  3. Access: yourdomain/wp-admin
+
+STEP 3 — INSTALL FREE THEME
+------------------------------
+Astra (recommended for SEO + speed):
+  Appearance → Themes → Add New → "Astra" → Install → Activate
+  Customizer → Colors:
+    Primary: #c8623a (clay orange)
+    Background: #faf6f0 (warm cream)
+    Text: #1c1814
+  Fonts: DM Serif Display (display) + Outfit (body)
+  → Add via Google Fonts plugin (free)
+
+OceanWP alternative:
+  Same steps, slightly different customiser layout.
+  Both are fast and AdSense-compatible.
+
+STEP 4 — ESSENTIAL FREE PLUGINS
+---------------------------------
+Plugins → Add New → install:
+
+  a) Calculated Fields Form (FREE)
+     The most important plugin — builds your calculators.
+     Create a new form for each calculator:
+     → WAEC Grade Calculator
+     → Currency Converter (with manual rate table)
+     → Loan Calculator (use formula fields)
+     → VAT Calculator
+     → BMI Calculator
+     Each calculator = one form with a shortcode [CP_CALCULATED_FIELDS_PRO...]
+     Embed shortcode into WordPress pages.
+
+  b) Ad Inserter (FREE)
+     Manages all your AdSense ad placements.
+     Paste your Google AdSense <ins> code into Ad Inserter:
+     → Slot 1: Before content (728×90)
+     → Slot 2: Middle of content (728×90)
+     → Slot 3: After content (728×90)
+     → Slot 4: Sidebar (300×250)
+     Ad Inserter → Automatic insertion → position-based
+
+  c) WooCommerce (FREE)
+     Handles Premium memberships via subscription product:
+     Create product: "CalcGH Premium"
+     Type: Simple · Virtual · Subscription (use WooCommerce
+     Subscriptions free alternative: "Subscriptions for WooCommerce")
+     Price: GHS 9/month
+
+  d) Paystack WooCommerce Gateway (FREE)
+     → Enable Paystack in WooCommerce → Payments
+     → Paste Public Key + Secret Key from dashboard.paystack.com
+     → MoMo auto-enabled for GHS ✓
+
+  e) Rank Math SEO (FREE) — CRITICAL
+     This drives all your free Google traffic.
+     For each calculator page, set:
+       Title: "WAEC Aggregate Calculator Ghana 2024 | Free"
+       Description: "Calculate your WASSCE aggregate score instantly..."
+       Focus keyword: "waec aggregate calculator ghana"
+     
+     TARGET KEYWORDS (high Ghana search volume):
+       → waec aggregate calculator ghana
+       → ghana loan calculator
+       → ghs to usd converter
+       → ghana vat calculator
+       → bece aggregate calculator
+       → paye calculator ghana
+       → ghana salary calculator
+     
+     These have low competition + high daily search volume.
+
+  f) WP Super Cache (FREE)
+     Speed = better AdSense RPM + better SEO.
+     Enable page caching for all calculator pages.
+
+  g) WPForms Lite (FREE)
+     Contact form for sponsors + user feedback.
+
+  h) UpdraftPlus (FREE)
+     Weekly backups. Essential.
+
+STEP 5 — BUILD CALCULATOR PAGES
+----------------------------------
+Create one WordPress Page per calculator:
+
+  URL structure (important for SEO):
+    /waec-aggregate-calculator/
+    /ghana-loan-calculator/
+    /ghs-usd-converter/
+    /ghana-vat-calculator/
+    /bmi-calculator/
+    /bece-aggregate-calculator/
+    /ghana-salary-tax-calculator/
+
+  For each page:
+  1. Add the Calculated Fields Form shortcode
+  2. Add introductory text (150+ words for SEO)
+  3. Ad Inserter automatically places ads around it
+  4. Add FAQ section below each tool (helps with SEO)
+
+STEP 6 — USE THIS HTML AS HOMEPAGE
+-------------------------------------
+Option A (WP Coder — free plugin):
+  Install WP Coder → New → paste full HTML → save
+  Pages → New page → paste WP Coder shortcode
+  Settings → Reading → Homepage → set this page
+
+Option B (Elementor):
+  Edit with Elementor → HTML widget per section
+
+Option C (Block Editor HTML block):
+  New page → Add Block → Custom HTML → paste full HTML
+
+STEP 7 — GOOGLE ADSENSE SETUP
+-------------------------------
+1. Go to adsense.google.com → Sign up with Gmail
+2. Enter your site URL (yourdomain.infinityfreeapp.com)
+3. Google sends a code snippet to verify your site:
+   Paste it in: Rank Math → General Settings → Analytics
+   OR use "Site Kit" WordPress plugin (free, by Google)
+4. Wait 2–14 days for approval (Google reviews your site)
+5. Once approved, create ad units:
+   → Leaderboard (728×90) — above/below tools
+   → Medium Rectangle (300×250) — sidebar
+   → In-article ads — between tool sections
+
+IN THIS HTML, replace all ad placeholder divs with:
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-XXXXXXXXXXXXXXXXX"
+       data-ad-slot="XXXXXXXXXX"
+       data-ad-format="auto">
+  </ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+
+ADSENSE TIPS FOR GHANA:
+  → Place ads ABOVE the fold (before the calculator)
+    AND below the result. High CTR spots.
+  → "Auto ads" option places ads automatically
+  → Set up "Page-level ads" for mobile sticky ads
+  → Don't click your own ads (account ban)
+
+STEP 8 — FLUTTERWAVE SETUP
+---------------------------
+1. dashboard.flutterwave.com → Settings → API Keys
+2. Copy Public Key (starts with FLWPUBK_...)
+3. Set FLUTTERWAVE_PUBLIC_KEY in GitHub repo secrets
+4. Replace 'FLWPUBK_TEST_REPLACE_WITH_YOUR_FLUTTERWAVE_PUBLIC_KEY'
+   in the HTML file with your live key for production
+
+STEP 9 — SEO TRAFFIC STRATEGY (Your #1 free growth engine)
+-------------------------------------------------------------
+This site lives and dies by Google traffic. Do this:
+
+  Week 1:
+    → Submit sitemap to Google Search Console
+    → Ensure all calculator pages are indexed
+    → Set up Google Analytics (via Site Kit plugin, free)
+
+  Week 2–4:
+    → Write 300-word intro text for each calculator page
+    → Add FAQ section to each page:
+      "How do I calculate WAEC aggregate?"
+      "What is the passing WASSCE grade in Ghana?"
+      "What is Ghana's current VAT rate?"
+    → These FAQ answers rank in Google's "People Also Ask" box
+
+  Ongoing:
+    → Add new calculator every 2–4 weeks
+    → Write "Ghana financial tips" blog posts
+    → Get backlinks from Ghanaian educational sites
+
+  REALISTIC TRAFFIC TIMELINE:
+    Month 1: 500–2,000 sessions (new site)
+    Month 3: 5,000–15,000 sessions (pages indexed)
+    Month 6: 20,000–50,000 sessions (SEO compounding)
+    Month 12: 50,000–150,000 sessions (established)
+
+  At 50,000 sessions/month with $0.50 CPM and 3 ad units:
+  AdSense revenue: ~$225/month (GH₵ 2,970)
+  Premium subscriptions (200 users × GH₵ 9): GH₵ 1,800
+  Total: GH₵ 4,770/month · ZERO fulfilment
+
+STEP 10 — LAUNCH CHECKLIST
+----------------------------
+[ ] WordPress on InfinityFree/paid host
+[ ] Astra theme + correct colors
+[ ] Calculated Fields Form for each calculator
+[ ] Ad Inserter plugin configured (placeholder until AdSense approved)
+[ ] WooCommerce + Flutterwave for Premium plan
+[ ] This HTML set as homepage
+[ ] 6 calculator pages created with SEO titles
+[ ] Rank Math SEO configured for each page
+[ ] Google Search Console submitted
+[ ] Google AdSense application submitted
+[ ] Flutterwave live keys installed
+[ ] Test premium purchase successful
+[ ] Site speed tested (should be 80+ on PageSpeed)
+
+ZERO COST BREAKDOWN
+--------------------
+InfinityFree hosting:          FREE
+Freenom domain (.tk):          FREE
+WordPress:                     FREE
+Astra theme (free):            FREE
+Calculated Fields Form:        FREE
+Ad Inserter:                   FREE
+WooCommerce:                   FREE
+Flutterwave:                  1.5% per transaction
+Rank Math SEO:                 FREE
+WP Super Cache:                FREE
+Google AdSense:                FREE to join
+
+TOTAL UPFRONT: GH₵ 0 / $0
+REVENUE MODEL: Ads + Premium subscriptions + Sponsors
+
+=================================================================
+-->
+</body>
+</html>
