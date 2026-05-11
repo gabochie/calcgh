@@ -6,7 +6,7 @@ module.exports = defineConfig({
   expect: { timeout: 10000 },
   fullyParallel: true,
   retries: 1,
-  workers: 3,
+  workers: 2,
   reporter: [['html', { open: 'never' }], ['list']],
   use: {
     baseURL: 'http://localhost:3000',

@@ -15,8 +15,8 @@ npm run build      # build dist/ with env injection
 
 ```
 CalcGH/
-├── ghana-calculator-hub.html   # single-page app (1873 lines)
-├── tests/calculators.spec.js   # 25+ Playwright tests
+├── index.html                  # single-page app (1898 lines)
+├── tests/calculators.spec.js   # 35 Playwright tests
 ├── scripts/build.js            # env substitution build
 ├── .github/workflows/ci.yml    # CI/CD → GitHub Pages
 └── package.json
@@ -48,6 +48,7 @@ Test coverage:
 ## Launch Checklist (24hr)
 
 - [ ] Push to GitHub → CI runs tests automatically
+- [ ] Set `FLUTTERWAVE_PUBLIC_KEY` in repo secrets
 - [ ] Set `GA_MEASUREMENT_ID` in repo secrets
 - [ ] Enable GitHub Pages → `gh-pages` branch
 - [ ] Add custom domain in Pages settings

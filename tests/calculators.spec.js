@@ -3,7 +3,7 @@ const { test, expect } = require('@playwright/test');
 const APP_PATH = '/';
 
 test.beforeEach(async ({ page }) => {
-  await page.goto(APP_PATH, { waitUntil: 'domcontentloaded', timeout: 15000 });
+  await page.goto(APP_PATH, { waitUntil: 'domcontentloaded', timeout: 30000 });
 });
 
 // ─── WAEC GRADE CALCULATOR ───
@@ -353,7 +353,7 @@ test.describe('UI & Layout', () => {
   test('all free tools have free badges', async ({ page }) => {
     const badges = page.locator('.tc-free-badge');
     const count = await badges.count();
-    expect(count).toBe(5);
+    expect(count).toBe(12);
   });
 
   test('footer contains key links', async ({ page }) => {

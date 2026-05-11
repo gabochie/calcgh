@@ -277,6 +277,12 @@ nav {
   font-size: .62rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
   padding: .2rem .65rem; border-radius: 999px;
 }
+.tc-premium-badge {
+  margin-left: auto; flex-shrink: 0;
+  background: #fef0e8; color: var(--clay);
+  font-size: .62rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  padding: .2rem .65rem; border-radius: 999px;
+}
 .tc-body { padding: 1.5rem; }
 
 /* form elements inside tools */
@@ -449,6 +455,12 @@ nav {
 .chip-voda .dot { background: #E60000; }
 .chip-airt { background: rgba(0,99,175,.1); color: #5599cc; border: 1px solid rgba(0,99,175,.2); }
 .chip-airt .dot { background: #0063AF; }
+.chip-zee  { background: rgba(0,166,81,.1); color: #007a3d; border: 1px solid rgba(0,166,81,.2); }
+.chip-zee .dot { background: #00A651; }
+.chip-gcb  { background: rgba(0,51,102,.1); color: #002244; border: 1px solid rgba(0,51,102,.2); }
+.chip-gcb .dot { background: #003366; }
+.chip-sly  { background: rgba(106,13,173,.1); color: #5a0b8f; border: 1px solid rgba(106,13,173,.2); }
+.chip-sly .dot { background: #6A0DAD; }
 .btn-upgrade {
   width: 100%; background: var(--clay); color: #fff;
   font-family: 'Outfit', sans-serif; font-weight: 600; font-size: .82rem;
@@ -689,7 +701,7 @@ footer {
 
 <!-- ═══ TOP BAR ═══ -->
 <div class="topbar">
-  Ghana's Free Calculator Suite &nbsp;·&nbsp; <strong>9 Tools</strong> &nbsp;·&nbsp; No Sign-up Required &nbsp;·&nbsp; <a href="#premium">Go Ad-Free from GH₵ 9/month</a>
+  Ghana's Free Calculator Suite &nbsp;·&nbsp; <strong>25 Tools</strong> &nbsp;·&nbsp; No Sign-up Required &nbsp;·&nbsp; <a href="#premium">Go Ad-Free from GH₵ 9/month</a>
 </div>
 
 <!-- ═══ NAV ═══ -->
@@ -1123,6 +1135,762 @@ footer {
         </div>
       </div>
 
+      <!-- AD MID -->
+      <div class="ad-mid">
+        <div class="ad-banner">
+          <div class="ad-label">Advertisement</div>
+          <div class="ad-placeholder ad-728">Google AdSense — 728×90 · &lt;ins class="adsbygoogle"&gt;</div>
+        </div>
+      </div>
+
+      <!-- ─── TOOL 6: AGE CALCULATOR ─── -->
+      <div class="tool-card" id="age">
+        <div class="tc-header">
+          <div class="tc-icon-wrap icon-gold">🎂</div>
+          <div>
+            <div class="tc-title">Age Calculator</div>
+            <div class="tc-subtitle">Calculate your exact age in years, months, and days</div>
+          </div>
+          <span class="tc-free-badge">Free</span>
+        </div>
+        <div class="tc-body">
+          <div class="tool-form">
+            <div class="tf-row">
+              <div class="tf-group">
+                <label>Date of Birth</label>
+                <input type="date" class="tf-input" id="age-dob">
+              </div>
+              <div class="tf-group">
+                <label>Calculate On (optional)</label>
+                <input type="date" class="tf-input" id="age-on">
+              </div>
+            </div>
+            <button class="btn-calc" onclick="calcAge()">Calculate Age</button>
+            <div class="result-box" id="age-result">
+              <div class="rb-label">Your Age</div>
+              <div class="rb-main" id="age-years">—</div>
+              <div class="rb-sub" id="age-next-bday">—</div>
+              <div class="rb-grid">
+                <div class="rb-cell"><div class="rb-cell-val" id="age-months">—</div><div class="rb-cell-label">Total Months</div></div>
+                <div class="rb-cell"><div class="rb-cell-val" id="age-days">—</div><div class="rb-cell-label">Total Days</div></div>
+                <div class="rb-cell highlight"><div class="rb-cell-val" id="age-weeks">—</div><div class="rb-cell-label">Total Weeks</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── TOOL 7: BECE GRADING ─── -->
+      <div class="tool-card" id="bece">
+        <div class="tc-header">
+          <div class="tc-icon-wrap icon-gold">📊</div>
+          <div>
+            <div class="tc-title">BECE Grade Aggregate Calculator</div>
+            <div class="tc-subtitle">Calculate BECE aggregate from 4 best core subjects</div>
+          </div>
+          <span class="tc-free-badge">Free</span>
+        </div>
+        <div class="tc-body">
+          <div class="tool-form">
+            <div style="font-size:.78rem;color:var(--muted);margin-bottom:.5rem">Enter grades for your 4 core BECE subjects (A=1 to F=6)</div>
+            <div class="grade-rows">
+              <div class="grade-row">
+                <span class="gr-subject">English Language</span>
+                <select class="gr-select" id="bece-eng">
+                  <option value="1">A — Excellent</option><option value="2">B — Very Good</option>
+                  <option value="3">C — Good</option><option value="4" selected>D — Credit</option>
+                  <option value="5">E — Pass</option><option value="6">F — Fail</option>
+                </select>
+              </div>
+              <div class="grade-row">
+                <span class="gr-subject">Mathematics</span>
+                <select class="gr-select" id="bece-math">
+                  <option value="1">A</option><option value="2">B</option>
+                  <option value="3" selected>C</option><option value="4">D</option>
+                  <option value="5">E</option><option value="6">F</option>
+                </select>
+              </div>
+              <div class="grade-row">
+                <span class="gr-subject">Integrated Science</span>
+                <select class="gr-select" id="bece-sci">
+                  <option value="1">A</option><option value="2" selected>B</option>
+                  <option value="3">C</option><option value="4">D</option>
+                  <option value="5">E</option><option value="6">F</option>
+                </select>
+              </div>
+              <div class="grade-row">
+                <span class="gr-subject">Social Studies</span>
+                <select class="gr-select" id="bece-social">
+                  <option value="1">A</option><option value="2">B</option>
+                  <option value="3" selected>C</option><option value="4">D</option>
+                  <option value="5">E</option><option value="6">F</option>
+                </select>
+              </div>
+            </div>
+            <button class="btn-calc" onclick="calcBECE()">Calculate BECE Aggregate</button>
+            <div class="result-box" id="bece-result">
+              <div class="rb-label">Your BECE Result</div>
+              <div class="rb-main" id="bece-agg">—</div>
+              <div class="rb-sub" id="bece-class">—</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── TOOL 8: COMPOUND INTEREST ─── -->
+      <div class="tool-card" id="compound">
+        <div class="tc-header">
+          <div class="tc-icon-wrap icon-green">📊</div>
+          <div>
+            <div class="tc-title">Compound Interest Calculator</div>
+            <div class="tc-subtitle">Calculate investment growth with monthly contributions</div>
+          </div>
+          <span class="tc-free-badge">Free</span>
+        </div>
+        <div class="tc-body">
+          <div class="tool-form">
+            <div class="tf-row">
+              <div class="tf-group">
+                <label>Principal (GHS)</label>
+                <input type="number" class="tf-input" id="comp-principal" value="10000" placeholder="e.g. 10000">
+              </div>
+              <div class="tf-group">
+                <label>Monthly Addition (GHS)</label>
+                <input type="number" class="tf-input" id="comp-monthly" value="500" placeholder="e.g. 500">
+              </div>
+            </div>
+            <div class="tf-row">
+              <div class="tf-group">
+                <label>Annual Interest Rate (%)</label>
+                <input type="number" class="tf-input" id="comp-rate" value="15" placeholder="e.g. 15" step="0.1">
+              </div>
+              <div class="tf-group">
+                <label>Investment Period (years)</label>
+                <input type="number" class="tf-input" id="comp-years" value="10" placeholder="e.g. 10">
+              </div>
+            </div>
+            <button class="btn-calc" onclick="calcCompound()">Calculate Growth</button>
+            <div class="result-box" id="compound-result">
+              <div class="rb-label">Future Value</div>
+              <div class="rb-main" id="comp-future">—</div>
+              <div class="rb-sub">Projected value of your investment</div>
+              <div class="rb-grid">
+                <div class="rb-cell highlight"><div class="rb-cell-val" id="comp-contrib">—</div><div class="rb-cell-label">Total Contributions</div></div>
+                <div class="rb-cell"><div class="rb-cell-val" id="comp-interest">—</div><div class="rb-cell-label">Interest Earned</div></div>
+                <div class="rb-cell"><div class="rb-cell-val" id="comp-growth">—</div><div class="rb-cell-label">Growth Rate</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── TOOL 9: DATE DIFFERENCE ─── -->
+      <div class="tool-card" id="datediff">
+        <div class="tc-header">
+          <div class="tc-icon-wrap icon-orange">📅</div>
+          <div>
+            <div class="tc-title">Date Difference Calculator</div>
+            <div class="tc-subtitle">Calculate days, weeks, months between two dates</div>
+          </div>
+          <span class="tc-free-badge">Free</span>
+        </div>
+        <div class="tc-body">
+          <div class="tool-form">
+            <div class="tf-row">
+              <div class="tf-group">
+                <label>Start Date</label>
+                <input type="date" class="tf-input" id="date-start">
+              </div>
+              <div class="tf-group">
+                <label>End Date</label>
+                <input type="date" class="tf-input" id="date-end">
+              </div>
+            </div>
+            <button class="btn-calc" onclick="calcDateDiff()">Calculate Difference</button>
+            <div class="result-box" id="datediff-result">
+              <div class="rb-label">Date Difference</div>
+              <div class="rb-main" id="dd-days">—</div>
+              <div class="rb-sub">Total days between dates</div>
+              <div class="rb-grid">
+                <div class="rb-cell"><div class="rb-cell-val" id="dd-weeks">—</div><div class="rb-cell-label">Weeks</div></div>
+                <div class="rb-cell"><div class="rb-cell-val" id="dd-months">—</div><div class="rb-cell-label">Months</div></div>
+                <div class="rb-cell highlight"><div class="rb-cell-val" id="dd-business">—</div><div class="rb-cell-label">Business Days</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── TOOL 10: DISCOUNT CALCULATOR ─── -->
+      <div class="tool-card" id="discount">
+        <div class="tc-header">
+          <div class="tc-icon-wrap icon-green">🏷️</div>
+          <div>
+            <div class="tc-title">Discount Calculator</div>
+            <div class="tc-subtitle">Calculate sale price and savings from percentage discount</div>
+          </div>
+          <span class="tc-free-badge">Free</span>
+        </div>
+        <div class="tc-body">
+          <div class="tool-form">
+            <div class="tf-row">
+              <div class="tf-group">
+                <label>Original Price (GHS)</label>
+                <input type="number" class="tf-input" id="disc-original" value="500" placeholder="e.g. 500">
+              </div>
+              <div class="tf-group">
+                <label>Discount Percentage (%)</label>
+                <input type="number" class="tf-input" id="disc-percent" value="20" placeholder="e.g. 20">
+              </div>
+            </div>
+            <button class="btn-calc" onclick="calcDiscount()">Calculate Savings</button>
+            <div class="result-box" id="discount-result">
+              <div class="rb-label">Discount Result</div>
+              <div class="rb-main" id="disc-final">—</div>
+              <div class="rb-sub">Final price after discount</div>
+              <div class="rb-grid">
+                <div class="rb-cell highlight"><div class="rb-cell-val" id="disc-savings">—</div><div class="rb-cell-label">You Save</div></div>
+                <div class="rb-cell"><div class="rb-cell-val" id="disc-orig-price">—</div><div class="rb-cell-label">Original Price</div></div>
+                <div class="rb-cell"><div class="rb-cell-val" id="disc-percent-off">—</div><div class="rb-cell-label">Discount</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── TOOL 11: FUEL COST ─── -->
+      <div class="tool-card" id="fuel">
+        <div class="tc-header">
+          <div class="tc-icon-wrap icon-orange">⛽</div>
+          <div>
+            <div class="tc-title">Fuel Cost Calculator</div>
+            <div class="tc-subtitle">Estimate fuel cost for your journey in Ghana</div>
+          </div>
+          <span class="tc-free-badge">Free</span>
+        </div>
+        <div class="tc-body">
+          <div class="tool-form">
+            <div class="tf-row">
+              <div class="tf-group">
+                <label>Distance (km)</label>
+                <input type="number" class="tf-input" id="fuel-dist" value="200" placeholder="e.g. 200">
+              </div>
+              <div class="tf-group">
+                <label>Fuel Efficiency (km/L)</label>
+                <input type="number" class="tf-input" id="fuel-eff" value="12" placeholder="e.g. 12" step="0.1">
+              </div>
+            </div>
+            <div class="tf-group">
+              <label>Fuel Price per Litre (GHS)</label>
+              <input type="number" class="tf-input" id="fuel-price" value="12.5" placeholder="e.g. 12.5" step="0.01">
+            </div>
+            <button class="btn-calc" onclick="calcFuel()">Calculate Fuel Cost</button>
+            <div class="result-box" id="fuel-result">
+              <div class="rb-label">Trip Fuel Cost</div>
+              <div class="rb-main" id="fuel-total">—</div>
+              <div class="rb-sub">Total estimated fuel cost</div>
+              <div class="rb-grid">
+                <div class="rb-cell"><div class="rb-cell-val" id="fuel-litres">—</div><div class="rb-cell-label">Litres Needed</div></div>
+                <div class="rb-cell highlight"><div class="rb-cell-val" id="fuel-per-km">—</div><div class="rb-cell-label">Cost per km</div></div>
+                <div class="rb-cell"><div class="rb-cell-val" id="fuel-round-trip">—</div><div class="rb-cell-label">Round Trip</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── TOOL 12: UNIT CONVERTER ─── -->
+      <div class="tool-card" id="unit">
+        <div class="tc-header">
+          <div class="tc-icon-wrap icon-blue">📏</div>
+          <div>
+            <div class="tc-title">Unit Converter</div>
+            <div class="tc-subtitle">Convert length, weight, volume, and temperature</div>
+          </div>
+          <span class="tc-free-badge">Free</span>
+        </div>
+        <div class="tc-body">
+          <div class="tool-form">
+            <div class="tf-row">
+              <div class="tf-group">
+                <label>Value</label>
+                <input type="number" class="tf-input" id="unit-val" value="100" placeholder="Enter value">
+              </div>
+              <div class="tf-group">
+                <label>Category</label>
+                <select class="tf-select" id="unit-cat" onchange="updateUnitOptions()">
+                  <option value="length">Length</option>
+                  <option value="weight">Weight</option>
+                  <option value="volume">Volume</option>
+                  <option value="temp">Temperature</option>
+                </select>
+              </div>
+            </div>
+            <div class="tf-row">
+              <div class="tf-group">
+                <label>From Unit</label>
+                <select class="tf-select" id="unit-from"></select>
+              </div>
+              <div class="tf-group">
+                <label>To Unit</label>
+                <select class="tf-select" id="unit-to"></select>
+              </div>
+            </div>
+            <button class="btn-calc" onclick="calcUnit()">Convert</button>
+            <div class="result-box" id="unit-result">
+              <div class="rb-label">Conversion Result</div>
+              <div class="rb-main" id="unit-result-val">—</div>
+              <div class="rb-sub" id="unit-formula">—</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AD MID -->
+      <div class="ad-mid">
+        <div class="ad-banner">
+          <div class="ad-label">Advertisement — Premium Tools</div>
+          <div class="ad-placeholder ad-728">Google AdSense — 728×90 · &lt;ins class="adsbygoogle"&gt;</div>
+        </div>
+      </div>
+
+      <!-- ─── TOOL 13: CONSTRUCTION MATERIALS (PREMIUM) ─── -->
+      <div class="tool-card" id="const">
+        <div class="tc-header">
+          <div class="tc-icon-wrap icon-orange">🧱</div>
+          <div>
+            <div class="tc-title">Construction Materials Calculator</div>
+            <div class="tc-subtitle">Estimate blocks, cement, sand for building projects</div>
+          </div>
+          <span class="tc-premium-badge">Premium</span>
+        </div>
+        <div class="tc-body">
+          <div class="tool-form">
+            <div class="tf-row">
+              <div class="tf-group">
+                <label>Wall Length (meters)</label>
+                <input type="number" class="tf-input" id="const-len" value="10" placeholder="e.g. 10">
+              </div>
+              <div class="tf-group">
+                <label>Wall Height (meters)</label>
+                <input type="number" class="tf-input" id="const-height" value="3" placeholder="e.g. 3">
+              </div>
+            </div>
+            <div class="tf-row">
+              <div class="tf-group">
+                <label>Wall Type</label>
+                <select class="tf-select" id="const-type">
+                  <option value="6">6-inch Block (external)</option>
+                  <option value="5">5-inch Block (internal)</option>
+                  <option value="4">4-inch Block (partition)</option>
+                </select>
+              </div>
+              <div class="tf-group">
+                <label>Cement Price per Bag (GHS)</label>
+                <input type="number" class="tf-input" id="const-cement-price" value="95" placeholder="e.g. 95">
+              </div>
+            </div>
+            <button class="btn-calc" onclick="calcConst()">Calculate Materials</button>
+            <div class="result-box" id="const-result">
+              <div class="rb-label">Material Estimate</div>
+              <div class="rb-main" id="const-total">—</div>
+              <div class="rb-sub">Total estimated material cost</div>
+              <div class="rb-grid">
+                <div class="rb-cell"><div class="rb-cell-val" id="const-blocks">—</div><div class="rb-cell-label">Blocks Needed</div></div>
+                <div class="rb-cell"><div class="rb-cell-val" id="const-cement">—</div><div class="rb-cell-label">Cement Bags</div></div>
+                <div class="rb-cell highlight"><div class="rb-cell-val" id="const-sand">—</div><div class="rb-cell-label">Sand (tons)</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── TOOL 14: ECG ELECTRICITY BILL (PREMIUM) ─── -->
+      <div class="tool-card" id="ecg">
+        <div class="tc-header">
+          <div class="tc-icon-wrap icon-gold">⚡</div>
+          <div>
+            <div class="tc-title">ECG Electricity Bill Calculator</div>
+            <div class="tc-subtitle">Calculate electricity bill based on ECG 2024 tariffs</div>
+          </div>
+          <span class="tc-premium-badge">Premium</span>
+        </div>
+        <div class="tc-body">
+          <div class="tool-form">
+            <div class="tf-row">
+              <div class="tf-group">
+                <label>Units Consumed (kWh)</label>
+                <input type="number" class="tf-input" id="ecg-units" value="200" placeholder="e.g. 200">
+              </div>
+              <div class="tf-group">
+                <label>Meter Type</label>
+                <select class="tf-select" id="ecg-meter">
+                  <option value="residential">Residential (Lifeline)</option>
+                  <option value="commercial">Commercial</option>
+                  <option value="industrial">Industrial</option>
+                </select>
+              </div>
+            </div>
+            <button class="btn-calc" onclick="calcECG()">Calculate Bill</button>
+            <div class="result-box" id="ecg-result">
+              <div class="rb-label">Electricity Bill</div>
+              <div class="rb-main" id="ecg-total">—</div>
+              <div class="rb-sub">Total bill including taxes and levies</div>
+              <div class="rb-grid">
+                <div class="rb-cell"><div class="rb-cell-val" id="ecg-energy">—</div><div class="rb-cell-label">Energy Charge</div></div>
+                <div class="rb-cell"><div class="rb-cell-val" id="ecg-service">—</div><div class="rb-cell-label">Service Charge</div></div>
+                <div class="rb-cell highlight"><div class="rb-cell-val" id="ecg-taxes">—</div><div class="rb-cell-label">Taxes & Levies</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── TOOL 15: FINAL EXAM SCORE (PREMIUM) ─── -->
+      <div class="tool-card" id="exam">
+        <div class="tc-header">
+          <div class="tc-icon-wrap icon-green">📝</div>
+          <div>
+            <div class="tc-title">Final Exam Score Calculator</div>
+            <div class="tc-subtitle">Find out what score you need on your final exam</div>
+          </div>
+          <span class="tc-premium-badge">Premium</span>
+        </div>
+        <div class="tc-body">
+          <div class="tool-form">
+            <div class="tf-row">
+              <div class="tf-group">
+                <label>Current Grade (%)</label>
+                <input type="number" class="tf-input" id="exam-current" value="75" placeholder="e.g. 75" min="0" max="100">
+              </div>
+              <div class="tf-group">
+                <label>Desired Grade (%)</label>
+                <input type="number" class="tf-input" id="exam-desired" value="80" placeholder="e.g. 80" min="0" max="100">
+              </div>
+            </div>
+            <div class="tf-group">
+              <label>Final Exam Weight (%)</label>
+              <input type="number" class="tf-input" id="exam-weight" value="40" placeholder="e.g. 40" min="1" max="99">
+            </div>
+            <button class="btn-calc" onclick="calcExam()">Calculate Required Score</button>
+            <div class="result-box" id="exam-result">
+              <div class="rb-label">Exam Score Needed</div>
+              <div class="rb-main" id="exam-needed">—</div>
+              <div class="rb-sub" id="exam-needed-sub">—</div>
+              <div class="rb-grid">
+                <div class="rb-cell"><div class="rb-cell-val" id="exam-min">—</div><div class="rb-cell-label">Minimum for A</div></div>
+                <div class="rb-cell highlight"><div class="rb-cell-val" id="exam-grade-est">—</div><div class="rb-cell-label">If Score = 50%</div></div>
+                <div class="rb-cell"><div class="rb-cell-val" id="exam-max">—</div><div class="rb-cell-label">Maximum Possible</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── TOOL 16: MORTGAGE (PREMIUM) ─── -->
+      <div class="tool-card" id="mortgage">
+        <div class="tc-header">
+          <div class="tc-icon-wrap icon-blue">🏠</div>
+          <div>
+            <div class="tc-title">Mortgage Affordability Calculator</div>
+            <div class="tc-subtitle">How much house can you afford in Ghana?</div>
+          </div>
+          <span class="tc-premium-badge">Premium</span>
+        </div>
+        <div class="tc-body">
+          <div class="tool-form">
+            <div class="tf-row">
+              <div class="tf-group">
+                <label>Monthly Gross Income (GHS)</label>
+                <input type="number" class="tf-input" id="mort-income" value="5000" placeholder="e.g. 5000">
+              </div>
+              <div class="tf-group">
+                <label>Monthly Debts (GHS)</label>
+                <input type="number" class="tf-input" id="mort-debts" value="500" placeholder="e.g. 500">
+              </div>
+            </div>
+            <div class="tf-row">
+              <div class="tf-group">
+                <label>Interest Rate (%)</label>
+                <input type="number" class="tf-input" id="mort-rate" value="22" placeholder="e.g. 22" step="0.1">
+              </div>
+              <div class="tf-group">
+                <label>Loan Term (years)</label>
+                <select class="tf-select" id="mort-term">
+                  <option value="10">10 years</option><option value="15">15 years</option>
+                  <option value="20" selected>20 years</option>
+                  <option value="25">25 years</option><option value="30">30 years</option>
+                </select>
+              </div>
+            </div>
+            <div class="tf-group">
+              <label>Deposit / Down Payment (GHS)</label>
+              <input type="number" class="tf-input" id="mort-deposit" value="50000" placeholder="e.g. 50000">
+            </div>
+            <button class="btn-calc" onclick="calcMortgage()">Calculate Affordability</button>
+            <div class="result-box" id="mortgage-result">
+              <div class="rb-label">Mortgage Affordability</div>
+              <div class="rb-main" id="mort-max-mort">—</div>
+              <div class="rb-sub">Maximum mortgage amount</div>
+              <div class="rb-grid">
+                <div class="rb-cell highlight"><div class="rb-cell-val" id="mort-affordable">—</div><div class="rb-cell-label">Affordable Price</div></div>
+                <div class="rb-cell"><div class="rb-cell-val" id="mort-monthly">—</div><div class="rb-cell-label">Monthly Payment</div></div>
+                <div class="rb-cell"><div class="rb-cell-val" id="mort-dti">—</div><div class="rb-cell-label">Debt-to-Income</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── TOOL 17: SSNIT PENSION (PREMIUM) ─── -->
+      <div class="tool-card" id="pension">
+        <div class="tc-header">
+          <div class="tc-icon-wrap icon-gold">👴</div>
+          <div>
+            <div class="tc-title">SSNIT Pension Calculator</div>
+            <div class="tc-subtitle">Estimate your monthly pension benefit at retirement</div>
+          </div>
+          <span class="tc-premium-badge">Premium</span>
+        </div>
+        <div class="tc-body">
+          <div class="tool-form">
+            <div class="tf-row">
+              <div class="tf-group">
+                <label>Current Age</label>
+                <input type="number" class="tf-input" id="pen-age" value="30" placeholder="e.g. 30">
+              </div>
+              <div class="tf-group">
+                <label>Retirement Age</label>
+                <select class="tf-select" id="pen-ret-age">
+                  <option value="60" selected>60 years (Standard)</option>
+                  <option value="55">55 years (Early)</option>
+                  <option value="65">65 years (Deferred)</option>
+                </select>
+              </div>
+            </div>
+            <div class="tf-row">
+              <div class="tf-group">
+                <label>Current Monthly Salary (GHS)</label>
+                <input type="number" class="tf-input" id="pen-salary" value="4000" placeholder="e.g. 4000">
+              </div>
+              <div class="tf-group">
+                <label>Years Contributed So Far</label>
+                <input type="number" class="tf-input" id="pen-years" value="5" placeholder="e.g. 5">
+              </div>
+            </div>
+            <button class="btn-calc" onclick="calcPension()">Estimate Pension</button>
+            <div class="result-box" id="pension-result">
+              <div class="rb-label">Estimated Monthly Pension</div>
+              <div class="rb-main" id="pen-monthly">—</div>
+              <div class="rb-sub">Based on SSNIT contribution formula</div>
+              <div class="rb-grid">
+                <div class="rb-cell"><div class="rb-cell-val" id="pen-total-years">—</div><div class="rb-cell-label">Total Months</div></div>
+                <div class="rb-cell highlight"><div class="rb-cell-val" id="pen-lump">—</div><div class="rb-cell-label">Lump Sum</div></div>
+                <div class="rb-cell"><div class="rb-cell-val" id="pen-rate">—</div><div class="rb-cell-label">Replacement Rate</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── TOOL 18: SCHOOL FEES PLANNER (PREMIUM) ─── -->
+      <div class="tool-card" id="school">
+        <div class="tc-header">
+          <div class="tc-icon-wrap icon-gold">🎓</div>
+          <div>
+            <div class="tc-title">School Fees Planner</div>
+            <div class="tc-subtitle">Plan and save for future education costs</div>
+          </div>
+          <span class="tc-premium-badge">Premium</span>
+        </div>
+        <div class="tc-body">
+          <div class="tool-form">
+            <div class="tf-row">
+              <div class="tf-group">
+                <label>Target Fees (GHS)</label>
+                <input type="number" class="tf-input" id="school-target" value="20000" placeholder="e.g. 20000">
+              </div>
+              <div class="tf-group">
+                <label>Years Until Fees Due</label>
+                <input type="number" class="tf-input" id="school-years" value="4" placeholder="e.g. 4">
+              </div>
+            </div>
+            <div class="tf-row">
+              <div class="tf-group">
+                <label>Current Savings (GHS)</label>
+                <input type="number" class="tf-input" id="school-current" value="2000" placeholder="e.g. 2000">
+              </div>
+              <div class="tf-group">
+                <label>Expected Annual Return (%)</label>
+                <input type="number" class="tf-input" id="school-return" value="12" placeholder="e.g. 12" step="0.1">
+              </div>
+            </div>
+            <button class="btn-calc" onclick="calcSchool()">Calculate Monthly Savings</button>
+            <div class="result-box" id="school-result">
+              <div class="rb-label">Savings Plan</div>
+              <div class="rb-main" id="school-monthly">—</div>
+              <div class="rb-sub">Monthly savings needed</div>
+              <div class="rb-grid">
+                <div class="rb-cell"><div class="rb-cell-val" id="school-total-saved">—</div><div class="rb-cell-label">Total Saved</div></div>
+                <div class="rb-cell highlight"><div class="rb-cell-val" id="school-interest">—</div><div class="rb-cell-label">Interest Earned</div></div>
+                <div class="rb-cell"><div class="rb-cell-val" id="school-future-val">—</div><div class="rb-cell-label">Future Value</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── TOOL 19: SAVINGS GOAL (PREMIUM) ─── -->
+      <div class="tool-card" id="goal">
+        <div class="tc-header">
+          <div class="tc-icon-wrap icon-gold">🎯</div>
+          <div>
+            <div class="tc-title">Savings Goal Calculator</div>
+            <div class="tc-subtitle">How long until you reach your savings target?</div>
+          </div>
+          <span class="tc-premium-badge">Premium</span>
+        </div>
+        <div class="tc-body">
+          <div class="tool-form">
+            <div class="tf-row">
+              <div class="tf-group">
+                <label>Goal Amount (GHS)</label>
+                <input type="number" class="tf-input" id="goal-amount" value="50000" placeholder="e.g. 50000">
+              </div>
+              <div class="tf-group">
+                <label>Current Savings (GHS)</label>
+                <input type="number" class="tf-input" id="goal-current" value="5000" placeholder="e.g. 5000">
+              </div>
+            </div>
+            <div class="tf-row">
+              <div class="tf-group">
+                <label>Monthly Contribution (GHS)</label>
+                <input type="number" class="tf-input" id="goal-monthly" value="1000" placeholder="e.g. 1000">
+              </div>
+              <div class="tf-group">
+                <label>Annual Return Rate (%)</label>
+                <input type="number" class="tf-input" id="goal-rate" value="10" placeholder="e.g. 10" step="0.1">
+              </div>
+            </div>
+            <button class="btn-calc" onclick="calcGoal()">Calculate Time to Goal</button>
+            <div class="result-box" id="goal-result">
+              <div class="rb-label">Time to Goal</div>
+              <div class="rb-main" id="goal-months">—</div>
+              <div class="rb-sub">Months to reach your target</div>
+              <div class="rb-grid">
+                <div class="rb-cell"><div class="rb-cell-val" id="goal-contrib">—</div><div class="rb-cell-label">Your Contributions</div></div>
+                <div class="rb-cell highlight"><div class="rb-cell-val" id="goal-int-earned">—</div><div class="rb-cell-label">Interest Earned</div></div>
+                <div class="rb-cell"><div class="rb-cell-val" id="goal-years">—</div><div class="rb-cell-label">In Years</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── TOOL 20: SHIPPING COST (PREMIUM) ─── -->
+      <div class="tool-card" id="shipping">
+        <div class="tc-header">
+          <div class="tc-icon-wrap icon-blue">📦</div>
+          <div>
+            <div class="tc-title">Shipping Cost Calculator</div>
+            <div class="tc-subtitle">Estimate delivery costs within Ghana</div>
+          </div>
+          <span class="tc-premium-badge">Premium</span>
+        </div>
+        <div class="tc-body">
+          <div class="tool-form">
+            <div class="tf-row">
+              <div class="tf-group">
+                <label>Package Weight (kg)</label>
+                <input type="number" class="tf-input" id="ship-weight" value="5" placeholder="e.g. 5" step="0.1">
+              </div>
+              <div class="tf-group">
+                <label>Delivery Type</label>
+                <select class="tf-select" id="ship-type">
+                  <option value="standard">Standard (3-5 days)</option>
+                  <option value="express">Express (1-2 days)</option>
+                  <option value="same-day">Same Day</option>
+                </select>
+              </div>
+            </div>
+            <div class="tf-row">
+              <div class="tf-group">
+                <label>Origin City</label>
+                <select class="tf-select" id="ship-origin">
+                  <option value="accra">Accra</option>
+                  <option value="kumasi">Kumasi</option>
+                  <option value="takoradi">Takoradi</option>
+                  <option value="tamale">Tamale</option>
+                  <option value="cape-coast">Cape Coast</option>
+                </select>
+              </div>
+              <div class="tf-group">
+                <label>Destination City</label>
+                <select class="tf-select" id="ship-dest">
+                  <option value="accra">Accra</option>
+                  <option value="kumasi" selected>Kumasi</option>
+                  <option value="takoradi">Takoradi</option>
+                  <option value="tamale">Tamale</option>
+                  <option value="cape-coast">Cape Coast</option>
+                </select>
+              </div>
+            </div>
+            <button class="btn-calc" onclick="calcShipping()">Estimate Shipping Cost</button>
+            <div class="result-box" id="shipping-result">
+              <div class="rb-label">Shipping Estimate</div>
+              <div class="rb-main" id="ship-cost">—</div>
+              <div class="rb-sub" id="ship-time">—</div>
+              <div class="rb-grid">
+                <div class="rb-cell"><div class="rb-cell-val" id="ship-base">—</div><div class="rb-cell-label">Base Cost</div></div>
+                <div class="rb-cell"><div class="rb-cell-val" id="ship-weight-cost">—</div><div class="rb-cell-label">Weight Charge</div></div>
+                <div class="rb-cell highlight"><div class="rb-cell-val" id="ship-distance">—</div><div class="rb-cell-label">Distance Factor</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── TOOL 21: WATER BILL (PREMIUM) ─── -->
+      <div class="tool-card" id="water">
+        <div class="tc-header">
+          <div class="tc-icon-wrap icon-blue">🚰</div>
+          <div>
+            <div class="tc-title">Water Bill Calculator (GWCL)</div>
+            <div class="tc-subtitle">Estimate your Ghana Water Company bill</div>
+          </div>
+          <span class="tc-premium-badge">Premium</span>
+        </div>
+        <div class="tc-body">
+          <div class="tool-form">
+            <div class="tf-row">
+              <div class="tf-group">
+                <label>Gallons Consumed</label>
+                <input type="number" class="tf-input" id="water-gallons" value="500" placeholder="e.g. 500">
+              </div>
+              <div class="tf-group">
+                <label>Customer Type</label>
+                <select class="tf-select" id="water-customer">
+                  <option value="domestic">Domestic (Residential)</option>
+                  <option value="commercial">Commercial</option>
+                  <option value="industrial">Industrial</option>
+                </select>
+              </div>
+            </div>
+            <button class="btn-calc" onclick="calcWater()">Calculate Water Bill</button>
+            <div class="result-box" id="water-result">
+              <div class="rb-label">Water Bill Estimate</div>
+              <div class="rb-main" id="water-total">—</div>
+              <div class="rb-sub">Total bill including VAT</div>
+              <div class="rb-grid">
+                <div class="rb-cell"><div class="rb-cell-val" id="water-consumption">—</div><div class="rb-cell-label">Consumption Charge</div></div>
+                <div class="rb-cell highlight"><div class="rb-cell-val" id="water-vat">—</div><div class="rb-cell-label">VAT (15%)</div></div>
+                <div class="rb-cell"><div class="rb-cell-val" id="water-litres">—</div><div class="rb-cell-label">Litres Used</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div><!-- /tools-grid -->
   </div><!-- /tools-col -->
 
@@ -1182,8 +1950,11 @@ footer {
         <div class="pb-price-note">per month · pay with MoMo</div>
         <div class="momo-chips">
           <span class="momo-chip chip-mtn"><span class="dot"></span>MTN MoMo</span>
-          <span class="momo-chip chip-voda"><span class="dot"></span>Vodafone</span>
+          <span class="momo-chip chip-voda"><span class="dot"></span>Vodafone Cash</span>
           <span class="momo-chip chip-airt"><span class="dot"></span>AirtelTigo</span>
+          <span class="momo-chip chip-zee"><span class="dot"></span>Zeepay</span>
+          <span class="momo-chip chip-gcb"><span class="dot"></span>G-Money</span>
+          <span class="momo-chip chip-sly"><span class="dot"></span>Slydepay</span>
         </div>
         <button class="btn-upgrade" onclick="openModal()">Upgrade Now →</button>
       </div>
@@ -1201,17 +1972,32 @@ footer {
 <!-- ═══ ALL TOOLS SHOWCASE ═══ -->
 <div class="tools-showcase">
   <div class="sec-label">Complete Library</div>
-  <h2 class="sec-h2">All 9+ Free Calculators</h2>
+  <h2 class="sec-h2">All 25+ Calculators</h2>
   <div class="tools-showcase-grid">
-    <a href="#waec" class="tsg-card"><div class="tsg-icon">📋</div><div class="tsg-name">WAEC Aggregate</div><div class="tsg-desc">Calculate university qualifying aggregate from WASSCE grades</div><span class="tsg-tag tag-free">Free</span></a>
-    <a href="#forex" class="tsg-card"><div class="tsg-icon">💱</div><div class="tsg-name">Currency Converter</div><div class="tsg-desc">GHS to USD, GBP, EUR, NGN and 20+ currencies</div><span class="tsg-tag tag-free">Free</span></a>
-    <a href="#loan" class="tsg-card"><div class="tsg-icon">🏦</div><div class="tsg-name">Loan Calculator</div><div class="tsg-desc">Monthly payments and full amortisation schedule</div><span class="tsg-tag tag-free">Free</span></a>
-    <a href="#vat" class="tsg-card"><div class="tsg-icon">🧮</div><div class="tsg-name">VAT Calculator</div><div class="tsg-desc">Ghana VAT + NHIL + GETFL at current rates</div><span class="tsg-tag tag-free">Free</span></a>
+    <a href="#age" class="tsg-card"><div class="tsg-icon">🎂</div><div class="tsg-name">Age Calculator</div><div class="tsg-desc">Exact age with next birthday countdown</div><span class="tsg-tag tag-free">Free</span></a>
+    <a href="#bece" class="tsg-card"><div class="tsg-icon">📊</div><div class="tsg-name">BECE Grading</div><div class="tsg-desc">BECE aggregate from core subjects</div><span class="tsg-tag tag-free">Free</span></a>
     <a href="#health" class="tsg-card"><div class="tsg-icon">🏃</div><div class="tsg-name">BMI Calculator</div><div class="tsg-desc">Body Mass Index with ideal weight range</div><span class="tsg-tag tag-free">Free</span></a>
-    <a href="#" class="tsg-card"><div class="tsg-icon">📊</div><div class="tsg-name">BECE Grading</div><div class="tsg-desc">Basic Education Certificate Examination grades</div><span class="tsg-tag tag-free">Free</span></a>
-    <a href="#" class="tsg-card"><div class="tsg-icon">🏠</div><div class="tsg-name">Rent-to-Buy</div><div class="tsg-desc">Compare renting vs buying a home in Ghana</div><span class="tsg-tag tag-premium">Premium</span></a>
-    <a href="#" class="tsg-card"><div class="tsg-icon">📈</div><div class="tsg-name">Salary Tax (PAYE)</div><div class="tsg-desc">Ghana income tax & SSNIT deductions calculator</div><span class="tsg-tag tag-premium">Premium</span></a>
-    <a href="#" class="tsg-card"><div class="tsg-icon">🌾</div><div class="tsg-name">Farm ROI</div><div class="tsg-desc">Agricultural profitability estimator for Ghana</div><span class="tsg-tag tag-premium">Premium</span></a>
+    <a href="#compound" class="tsg-card"><div class="tsg-icon">📊</div><div class="tsg-name">Compound Interest</div><div class="tsg-desc">Investment growth with monthly contributions</div><span class="tsg-tag tag-free">Free</span></a>
+    <a href="#forex" class="tsg-card"><div class="tsg-icon">💱</div><div class="tsg-name">Currency Converter</div><div class="tsg-desc">GHS to USD, GBP, EUR, NGN and more</div><span class="tsg-tag tag-free">Free</span></a>
+    <a href="#datediff" class="tsg-card"><div class="tsg-icon">📅</div><div class="tsg-name">Date Difference</div><div class="tsg-desc">Days, weeks, months between dates</div><span class="tsg-tag tag-free">Free</span></a>
+    <a href="#discount" class="tsg-card"><div class="tsg-icon">🏷️</div><div class="tsg-name">Discount Calculator</div><div class="tsg-desc">Sale price and savings from discounts</div><span class="tsg-tag tag-free">Free</span></a>
+    <a href="#fuel" class="tsg-card"><div class="tsg-icon">⛽</div><div class="tsg-name">Fuel Cost Calculator</div><div class="tsg-desc">Estimate trip fuel cost in Ghana</div><span class="tsg-tag tag-free">Free</span></a>
+    <a href="#loan" class="tsg-card"><div class="tsg-icon">🏦</div><div class="tsg-name">Loan Calculator</div><div class="tsg-desc">Monthly payments and amortisation</div><span class="tsg-tag tag-free">Free</span></a>
+    <a href="#unit" class="tsg-card"><div class="tsg-icon">📏</div><div class="tsg-name">Unit Converter</div><div class="tsg-desc">Length, weight, volume, temperature</div><span class="tsg-tag tag-free">Free</span></a>
+    <a href="#vat" class="tsg-card"><div class="tsg-icon">🧮</div><div class="tsg-name">VAT Calculator</div><div class="tsg-desc">Ghana VAT + NHIL + GETFL rates</div><span class="tsg-tag tag-free">Free</span></a>
+    <a href="#waec" class="tsg-card"><div class="tsg-icon">📋</div><div class="tsg-name">WAEC Aggregate</div><div class="tsg-desc">WASSCE aggregate and university admission</div><span class="tsg-tag tag-free">Free</span></a>
+    <a href="#const" class="tsg-card"><div class="tsg-icon">🧱</div><div class="tsg-name">Construction Materials</div><div class="tsg-desc">Blocks, cement, sand for building</div><span class="tsg-tag tag-premium">Premium</span></a>
+    <a href="#ecg" class="tsg-card"><div class="tsg-icon">⚡</div><div class="tsg-name">ECG Electricity Bill</div><div class="tsg-desc">Electricity bill with ECG tariffs</div><span class="tsg-tag tag-premium">Premium</span></a>
+    <a href="#exam" class="tsg-card"><div class="tsg-icon">📝</div><div class="tsg-name">Exam Score Calculator</div><div class="tsg-desc">What you need on your final exam</div><span class="tsg-tag tag-premium">Premium</span></a>
+    <a href="#" class="tsg-card"><div class="tsg-icon">🌾</div><div class="tsg-name">Farm ROI</div><div class="tsg-desc">Agricultural profitability estimator</div><span class="tsg-tag tag-premium">Premium</span></a>
+    <a href="#mortgage" class="tsg-card"><div class="tsg-icon">🏠</div><div class="tsg-name">Mortgage Calculator</div><div class="tsg-desc">Home affordability and loan payments</div><span class="tsg-tag tag-premium">Premium</span></a>
+    <a href="#" class="tsg-card"><div class="tsg-icon">📈</div><div class="tsg-name">PAYE Salary Tax</div><div class="tsg-desc">Income tax & SSNIT deductions</div><span class="tsg-tag tag-premium">Premium</span></a>
+    <a href="#" class="tsg-card"><div class="tsg-icon">🏠</div><div class="tsg-name">Rent-to-Buy</div><div class="tsg-desc">Compare renting vs buying in Ghana</div><span class="tsg-tag tag-premium">Premium</span></a>
+    <a href="#goal" class="tsg-card"><div class="tsg-icon">🎯</div><div class="tsg-name">Savings Goal</div><div class="tsg-desc">Time to reach any savings target</div><span class="tsg-tag tag-premium">Premium</span></a>
+    <a href="#school" class="tsg-card"><div class="tsg-icon">🎓</div><div class="tsg-name">School Fees Planner</div><div class="tsg-desc">Plan savings for education costs</div><span class="tsg-tag tag-premium">Premium</span></a>
+    <a href="#shipping" class="tsg-card"><div class="tsg-icon">📦</div><div class="tsg-name">Shipping Cost</div><div class="tsg-desc">Delivery costs within Ghana</div><span class="tsg-tag tag-premium">Premium</span></a>
+    <a href="#pension" class="tsg-card"><div class="tsg-icon">👴</div><div class="tsg-name">SSNIT Pension</div><div class="tsg-desc">Estimate retirement pension benefit</div><span class="tsg-tag tag-premium">Premium</span></a>
+    <a href="#water" class="tsg-card"><div class="tsg-icon">🚰</div><div class="tsg-name">Water Bill Calculator</div><div class="tsg-desc">GWCL water bill estimates</div><span class="tsg-tag tag-premium">Premium</span></a>
   </div>
 </div>
 
@@ -1292,6 +2078,9 @@ footer {
           <span class="momo-chip chip-mtn"><span class="dot"></span>MTN MoMo</span>
           <span class="momo-chip chip-voda"><span class="dot"></span>Vodafone Cash</span>
           <span class="momo-chip chip-airt"><span class="dot"></span>AirtelTigo</span>
+          <span class="momo-chip chip-zee"><span class="dot"></span>Zeepay</span>
+          <span class="momo-chip chip-gcb"><span class="dot"></span>G-Money</span>
+          <span class="momo-chip chip-sly"><span class="dot"></span>Slydepay</span>
         </div>
         <div class="order-box">
           <div class="ob-line"><span>Plan</span><span id="o-plan">Monthly Premium</span></div>
@@ -1300,7 +2089,7 @@ footer {
         </div>
         <button class="btn-pay-premium" onclick="payWithFlutterwave()">Pay with Flutterwave</button>
         <div class="pay-secure-note">
-          Secured by Flutterwave · MTN MoMo, Vodafone Cash & AirtelTigo<br>
+          Secured by Flutterwave · MTN MoMo, Vodafone Cash, AirtelTigo, Zeepay, G-Money & Slydepay<br>
           Cancel anytime · Access granted within 60 seconds
         </div>
       </div>
@@ -1316,22 +2105,35 @@ footer {
       <div class="footer-desc">Ghana's free calculator suite. Tools for students, businesses, and everyday Ghanaians. Built and maintained from Accra.</div>
     </div>
     <div>
-      <div class="footer-col-title">Calculators</div>
+      <div class="footer-col-title">Free Tools</div>
       <div class="footer-links">
         <a href="#waec">WAEC Aggregate</a>
+        <a href="#bece">BECE Grading</a>
         <a href="#forex">Currency Converter</a>
         <a href="#loan">Loan Calculator</a>
         <a href="#vat">VAT Calculator</a>
         <a href="#health">BMI Calculator</a>
+        <a href="#age">Age Calculator</a>
+        <a href="#discount">Discount Calculator</a>
+        <a href="#fuel">Fuel Cost Calculator</a>
+        <a href="#unit">Unit Converter</a>
+        <a href="#datediff">Date Difference</a>
+        <a href="#compound">Compound Interest</a>
       </div>
     </div>
     <div>
-      <div class="footer-col-title">Premium</div>
+      <div class="footer-col-title">Premium Tools</div>
       <div class="footer-links">
-        <a href="#premium">Upgrade Account</a>
-        <a href="#premium">PAYE Calculator</a>
-        <a href="#premium">Farm ROI Tool</a>
-        <a href="#premium">Salary Tax</a>
+        <a href="#premium">Upgrade to Premium</a>
+        <a href="#mortgage">Mortgage Calculator</a>
+        <a href="#pension">SSNIT Pension</a>
+        <a href="#ecg">ECG Electricity Bill</a>
+        <a href="#water">Water Bill</a>
+        <a href="#school">School Fees Planner</a>
+        <a href="#goal">Savings Goal</a>
+        <a href="#const">Construction Materials</a>
+        <a href="#shipping">Shipping Cost</a>
+        <a href="#exam">Exam Score Calculator</a>
       </div>
     </div>
     <div>
@@ -1364,6 +2166,9 @@ footer {
       <span class="momo-chip chip-mtn"><span class="dot"></span>MTN MoMo</span>
       <span class="momo-chip chip-voda"><span class="dot"></span>Vodafone Cash</span>
       <span class="momo-chip chip-airt"><span class="dot"></span>AirtelTigo</span>
+      <span class="momo-chip chip-zee"><span class="dot"></span>Zeepay</span>
+      <span class="momo-chip chip-gcb"><span class="dot"></span>G-Money</span>
+      <span class="momo-chip chip-sly"><span class="dot"></span>Slydepay</span>
     </div>
     <input type="text" class="m-input" placeholder="Full Name" id="m-name">
     <input type="email" class="m-input" placeholder="your@email.com" id="m-email">
@@ -1621,6 +2426,380 @@ function payWithFlutterwave() {
     },
     onclose: function() {}
   });
+}
+
+// ─── UNIT CONVERTER HELPERS ───
+const units = {
+  length: [
+    { v: 'm', l: 'Meter (m)', f: 1 },
+    { v: 'km', l: 'Kilometer (km)', f: 1000 },
+    { v: 'cm', l: 'Centimeter (cm)', f: 0.01 },
+    { v: 'mm', l: 'Millimeter (mm)', f: 0.001 },
+    { v: 'mi', l: 'Mile (mi)', f: 1609.34 },
+    { v: 'yd', l: 'Yard (yd)', f: 0.9144 },
+    { v: 'ft', l: 'Foot (ft)', f: 0.3048 },
+    { v: 'in', l: 'Inch (in)', f: 0.0254 }
+  ],
+  weight: [
+    { v: 'kg', l: 'Kilogram (kg)', f: 1 },
+    { v: 'g', l: 'Gram (g)', f: 0.001 },
+    { v: 'mg', l: 'Milligram (mg)', f: 0.000001 },
+    { v: 'lb', l: 'Pound (lb)', f: 0.453592 },
+    { v: 'oz', l: 'Ounce (oz)', f: 0.0283495 },
+    { v: 't', l: 'Metric Ton (t)', f: 1000 }
+  ],
+  volume: [
+    { v: 'l', l: 'Liter (L)', f: 1 },
+    { v: 'ml', l: 'Milliliter (mL)', f: 0.001 },
+    { v: 'm3', l: 'Cubic Meter (m³)', f: 1000 },
+    { v: 'gal', l: 'Gallon (US)', f: 3.78541 },
+    { v: 'qt', l: 'Quart (US)', f: 0.946353 },
+    { v: 'pt', l: 'Pint (US)', f: 0.473176 },
+    { v: 'cup', l: 'Cup (US)', f: 0.236588 }
+  ],
+  temp: [
+    { v: 'c', l: 'Celsius (°C)', f: 1 },
+    { v: 'f', l: 'Fahrenheit (°F)', f: 1 },
+    { v: 'k', l: 'Kelvin (K)', f: 1 }
+  ]
+};
+
+function updateUnitOptions() {
+  const cat = document.getElementById('unit-cat').value;
+  const fromS = document.getElementById('unit-from');
+  const toS = document.getElementById('unit-to');
+  fromS.innerHTML = '';
+  toS.innerHTML = '';
+  units[cat].forEach((u, i) => {
+    fromS.innerHTML += '<option value="' + u.v + '">' + u.l + '</option>';
+    toS.innerHTML += '<option value="' + u.v + '"' + (i === 1 ? ' selected' : '') + '>' + u.l + '</option>';
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  updateUnitOptions();
+  var today = new Date().toISOString().split('T')[0];
+  var ageOn = document.getElementById('age-on');
+  if (ageOn) ageOn.value = today;
+});
+
+// ─── AGE CALCULATOR ───
+function calcAge() {
+  var dobStr = document.getElementById('age-dob').value;
+  var onStr = document.getElementById('age-on').value;
+  if (!dobStr) { alert('Please select your date of birth'); return; }
+  var dob = new Date(dobStr);
+  var today = onStr ? new Date(onStr) : new Date();
+  if (dob > today) { alert('Date of birth cannot be in the future'); return; }
+  var y = today.getFullYear() - dob.getFullYear();
+  var m = today.getMonth() - dob.getMonth();
+  var d = today.getDate() - dob.getDate();
+  if (d < 0) { m--; d += new Date(today.getFullYear(), today.getMonth(), 0).getDate(); }
+  if (m < 0) { y--; m += 12; }
+  var diff = today - dob;
+  var totalDays = Math.floor(diff / 86400000);
+  var nextBday = new Date(today.getFullYear(), dob.getMonth(), dob.getDate());
+  if (nextBday < today) nextBday.setFullYear(nextBday.getFullYear() + 1);
+  var daysUntil = Math.ceil((nextBday - today) / 86400000);
+  document.getElementById('age-years').textContent = y + ' years, ' + m + ' months, ' + d + ' days';
+  document.getElementById('age-months').textContent = Math.floor(totalDays / 30.44);
+  document.getElementById('age-days').textContent = totalDays;
+  document.getElementById('age-weeks').textContent = Math.floor(totalDays / 7);
+  document.getElementById('age-next-bday').textContent = daysUntil + ' days until next birthday';
+  document.getElementById('age-result').classList.add('show');
+}
+
+// ─── BECE CALCULATOR ───
+function calcBECE() {
+  var eng = parseInt(document.getElementById('bece-eng').value);
+  var math = parseInt(document.getElementById('bece-math').value);
+  var sci = parseInt(document.getElementById('bece-sci').value);
+  var social = parseInt(document.getElementById('bece-social').value);
+  var agg = eng + math + sci + social;
+  document.getElementById('bece-agg').textContent = 'Aggregate: ' + agg + '/24';
+  var cls = '';
+  if (agg <= 6) cls = 'Grade 1 — Excellent';
+  else if (agg <= 9) cls = 'Grade 2 — Very Good';
+  else if (agg <= 12) cls = 'Grade 3 — Good';
+  else if (agg <= 15) cls = 'Grade 4 — Credit';
+  else if (agg <= 18) cls = 'Grade 5 — Pass';
+  else cls = 'Grade 6 — Fail';
+  document.getElementById('bece-class').textContent = cls;
+  document.getElementById('bece-result').classList.add('show');
+}
+
+// ─── COMPOUND INTEREST ───
+function calcCompound() {
+  var p = parseFloat(document.getElementById('comp-principal').value) || 0;
+  var m = parseFloat(document.getElementById('comp-monthly').value) || 0;
+  var r = (parseFloat(document.getElementById('comp-rate').value) || 0) / 100 / 12;
+  var n = (parseFloat(document.getElementById('comp-years').value) || 0) * 12;
+  if (n === 0) return;
+  var fv = p * Math.pow(1 + r, n) + m * (Math.pow(1 + r, n) - 1) / r;
+  var totalContrib = p + m * n;
+  var interest = fv - totalContrib;
+  var fmt = function(v) { return 'GH₵ ' + v.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','); };
+  document.getElementById('comp-future').textContent = fmt(fv);
+  document.getElementById('comp-contrib').textContent = fmt(totalContrib);
+  document.getElementById('comp-interest').textContent = fmt(interest);
+  document.getElementById('comp-growth').textContent = (fv / totalContrib * 100 - 100).toFixed(1) + '%';
+  document.getElementById('compound-result').classList.add('show');
+}
+
+// ─── DATE DIFFERENCE ───
+function calcDateDiff() {
+  var s = document.getElementById('date-start').value;
+  var e = document.getElementById('date-end').value;
+  if (!s || !e) { alert('Please select both dates'); return; }
+  var d1 = new Date(s), d2 = new Date(e);
+  if (d2 < d1) { var t = d1; d1 = d2; d2 = t; }
+  var diff = d2 - d1;
+  var days = Math.floor(diff / 86400000);
+  var weeks = Math.floor(days / 7);
+  var months = Math.floor((d2.getFullYear() - d1.getFullYear()) * 12 + d2.getMonth() - d1.getMonth());
+  var biz = 0;
+  for (var dd = new Date(d1); dd <= d2; dd.setDate(dd.getDate() + 1)) {
+    var day = dd.getDay();
+    if (day > 0 && day < 6) biz++;
+  }
+  document.getElementById('dd-days').textContent = days;
+  document.getElementById('dd-weeks').textContent = weeks;
+  document.getElementById('dd-months').textContent = months;
+  document.getElementById('dd-business').textContent = biz;
+  document.getElementById('datediff-result').classList.add('show');
+}
+
+// ─── DISCOUNT CALCULATOR ───
+function calcDiscount() {
+  var orig = parseFloat(document.getElementById('disc-original').value) || 0;
+  var pct = parseFloat(document.getElementById('disc-percent').value) || 0;
+  var savings = orig * pct / 100;
+  var final = orig - savings;
+  var fmt = function(v) { return 'GH₵ ' + v.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','); };
+  document.getElementById('disc-final').textContent = fmt(final);
+  document.getElementById('disc-savings').textContent = fmt(savings);
+  document.getElementById('disc-orig-price').textContent = fmt(orig);
+  document.getElementById('disc-percent-off').textContent = pct.toFixed(1) + '%';
+  document.getElementById('discount-result').classList.add('show');
+}
+
+// ─── FUEL COST ───
+function calcFuel() {
+  var dist = parseFloat(document.getElementById('fuel-dist').value) || 0;
+  var eff = parseFloat(document.getElementById('fuel-eff').value) || 1;
+  var price = parseFloat(document.getElementById('fuel-price').value) || 0;
+  var litres = dist / eff;
+  var total = litres * price;
+  var perKm = total / dist;
+  var fmt = function(v) { return 'GH₵ ' + v.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','); };
+  document.getElementById('fuel-total').textContent = fmt(total);
+  document.getElementById('fuel-litres').textContent = litres.toFixed(1) + ' L';
+  document.getElementById('fuel-per-km').textContent = fmt(perKm);
+  document.getElementById('fuel-round-trip').textContent = fmt(total * 2);
+  document.getElementById('fuel-result').classList.add('show');
+}
+
+// ─── UNIT CONVERTER ───
+function calcUnit() {
+  var val = parseFloat(document.getElementById('unit-val').value) || 0;
+  var cat = document.getElementById('unit-cat').value;
+  var fromVal = document.getElementById('unit-from').value;
+  var toVal = document.getElementById('unit-to').value;
+  var from = units[cat].find(function(u) { return u.v === fromVal; });
+  var to = units[cat].find(function(u) { return u.v === toVal; });
+  var result;
+  if (cat === 'temp') {
+    if (fromVal === 'c' && toVal === 'f') result = val * 9/5 + 32;
+    else if (fromVal === 'c' && toVal === 'k') result = val + 273.15;
+    else if (fromVal === 'f' && toVal === 'c') result = (val - 32) * 5/9;
+    else if (fromVal === 'f' && toVal === 'k') result = (val - 32) * 5/9 + 273.15;
+    else if (fromVal === 'k' && toVal === 'c') result = val - 273.15;
+    else if (fromVal === 'k' && toVal === 'f') result = (val - 273.15) * 9/5 + 32;
+    else result = val;
+  } else {
+    result = val * from.f / to.f;
+  }
+  document.getElementById('unit-result-val').textContent = result.toLocaleString(undefined, { maximumFractionDigits: 6 });
+  document.getElementById('unit-formula').textContent = val + ' ' + from.l + ' = ' + result.toFixed(4) + ' ' + to.l;
+  document.getElementById('unit-result').classList.add('show');
+}
+
+// ─── CONSTRUCTION MATERIALS ───
+function calcConst() {
+  var len = parseFloat(document.getElementById('const-len').value) || 0;
+  var h = parseFloat(document.getElementById('const-height').value) || 0;
+  var type = parseInt(document.getElementById('const-type').value);
+  var cPrice = parseFloat(document.getElementById('const-cement-price').value) || 95;
+  var area = len * h;
+  var blocksPerM2 = type === 6 ? 10 : type === 5 ? 12 : 14;
+  var blocks = Math.ceil(area * blocksPerM2);
+  var cementBags = Math.ceil(blocks / 50);
+  var sandTons = (blocks / 1000 * 1.5).toFixed(1);
+  var cost = cementBags * cPrice;
+  var fmt = function(v) { return 'GH₵ ' + v.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','); };
+  document.getElementById('const-blocks').textContent = blocks;
+  document.getElementById('const-cement').textContent = cementBags + ' bags';
+  document.getElementById('const-sand').textContent = sandTons;
+  document.getElementById('const-total').textContent = fmt(cost);
+  document.getElementById('const-result').classList.add('show');
+}
+
+// ─── ECG ELECTRICITY BILL ───
+function calcECG() {
+  var units = parseFloat(document.getElementById('ecg-units').value) || 0;
+  var meter = document.getElementById('ecg-meter').value;
+  var rates = { residential: 0.45, commercial: 0.72, industrial: 0.85 };
+  var rate = rates[meter] || 0.45;
+  var energy = units * rate;
+  var service = meter === 'residential' ? 5 : 15;
+  var taxes = (energy + service) * 0.1925;
+  var total = energy + service + taxes;
+  var fmt = function(v) { return 'GH₵ ' + v.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','); };
+  document.getElementById('ecg-energy').textContent = fmt(energy);
+  document.getElementById('ecg-service').textContent = fmt(service);
+  document.getElementById('ecg-taxes').textContent = fmt(taxes);
+  document.getElementById('ecg-total').textContent = fmt(total);
+  document.getElementById('ecg-result').classList.add('show');
+}
+
+// ─── EXAM SCORE ───
+function calcExam() {
+  var cur = parseFloat(document.getElementById('exam-current').value) || 0;
+  var des = parseFloat(document.getElementById('exam-desired').value) || 0;
+  var w = parseFloat(document.getElementById('exam-weight').value) || 0;
+  var needed = (des - cur * (1 - w / 100)) / (w / 100);
+  var minA = (90 - cur * (1 - w / 100)) / (w / 100);
+  var at50 = cur * (1 - w / 100) + 50 * (w / 100);
+  document.getElementById('exam-needed').textContent = Math.max(0, needed).toFixed(1) + '%';
+  document.getElementById('exam-needed-sub').textContent = needed > 100 ? 'Unattainable — lower your target grade' : 'Required on final exam to reach your goal';
+  document.getElementById('exam-min').textContent = Math.max(0, minA).toFixed(1) + '%';
+  document.getElementById('exam-grade-est').textContent = at50.toFixed(1) + '%';
+  document.getElementById('exam-max').textContent = (cur * (1 - w / 100) + 100 * (w / 100)).toFixed(1) + '%';
+  document.getElementById('exam-result').classList.add('show');
+}
+
+// ─── MORTGAGE ───
+function calcMortgage() {
+  var inc = parseFloat(document.getElementById('mort-income').value) || 0;
+  var debts = parseFloat(document.getElementById('mort-debts').value) || 0;
+  var rate = (parseFloat(document.getElementById('mort-rate').value) || 0) / 100 / 12;
+  var term = parseInt(document.getElementById('mort-term').value) * 12;
+  var dep = parseFloat(document.getElementById('mort-deposit').value) || 0;
+  var maxPayment = inc * 0.4 - debts;
+  if (maxPayment < 0) maxPayment = 0;
+  var maxMort = maxPayment * (1 - Math.pow(1 + rate, -term)) / rate;
+  var affordable = maxMort + dep;
+  var monthly = maxMort * rate * Math.pow(1 + rate, term) / (Math.pow(1 + rate, term) - 1);
+  var dti = inc > 0 ? ((debts + monthly) / inc * 100) : 0;
+  var fmt = function(v) { return 'GH₵ ' + v.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','); };
+  document.getElementById('mort-max-mort').textContent = fmt(maxMort);
+  document.getElementById('mort-affordable').textContent = fmt(affordable);
+  document.getElementById('mort-monthly').textContent = fmt(monthly || maxPayment);
+  document.getElementById('mort-dti').textContent = dti.toFixed(1) + '%';
+  document.getElementById('mortgage-result').classList.add('show');
+}
+
+// ─── SSNIT PENSION ───
+function calcPension() {
+  var age = parseFloat(document.getElementById('pen-age').value) || 0;
+  var retAge = parseFloat(document.getElementById('pen-ret-age').value) || 60;
+  var sal = parseFloat(document.getElementById('pen-salary').value) || 0;
+  var yrs = parseFloat(document.getElementById('pen-years').value) || 0;
+  var remaining = retAge - age;
+  var totalYrs = yrs + remaining;
+  if (totalYrs < 0) totalYrs = 0;
+  var lumpSum = totalYrs >= 15 ? sal * totalYrs * 0.125 : 0;
+  var monthlyPen = totalYrs >= 15 ? sal * 0.375 * (totalYrs / 40) : 0;
+  var rate = sal > 0 ? monthlyPen / sal * 100 : 0;
+  var fmt = function(v) { return 'GH₵ ' + v.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','); };
+  document.getElementById('pen-monthly').textContent = fmt(monthlyPen);
+  document.getElementById('pen-total-years').textContent = Math.round(totalYrs * 12);
+  document.getElementById('pen-lump').textContent = fmt(lumpSum);
+  document.getElementById('pen-rate').textContent = rate.toFixed(1) + '%';
+  document.getElementById('pension-result').classList.add('show');
+}
+
+// ─── SCHOOL FEES PLANNER ───
+function calcSchool() {
+  var target = parseFloat(document.getElementById('school-target').value) || 0;
+  var years = parseFloat(document.getElementById('school-years').value) || 1;
+  var current = parseFloat(document.getElementById('school-current').value) || 0;
+  var rate = (parseFloat(document.getElementById('school-return').value) || 0) / 100 / 12;
+  var n = years * 12;
+  var fvCurrent = current * Math.pow(1 + rate, n);
+  var needed = target - fvCurrent;
+  var monthly = needed > 0 ? needed * rate / (Math.pow(1 + rate, n) - 1) : 0;
+  var totalSaved = monthly * n + current;
+  var interest = totalSaved - (monthly * n + current) + fvCurrent - current;
+  var fmt = function(v) { return 'GH₵ ' + v.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','); };
+  document.getElementById('school-monthly').textContent = fmt(monthly);
+  document.getElementById('school-total-saved').textContent = fmt(totalSaved);
+  document.getElementById('school-interest').textContent = fmt(Math.max(0, interest));
+  document.getElementById('school-future-val').textContent = fmt(Math.max(fvCurrent, totalSaved));
+  document.getElementById('school-result').classList.add('show');
+}
+
+// ─── SAVINGS GOAL ───
+function calcGoal() {
+  var goal = parseFloat(document.getElementById('goal-amount').value) || 0;
+  var cur = parseFloat(document.getElementById('goal-current').value) || 0;
+  var monthly = parseFloat(document.getElementById('goal-monthly').value) || 0;
+  var r = (parseFloat(document.getElementById('goal-rate').value) || 0) / 100 / 12;
+  if (monthly <= 0) { alert('Enter a monthly contribution'); return; }
+  var fv = cur;
+  var months = 0;
+  while (fv < goal && months < 1200) {
+    fv = fv * (1 + r) + monthly;
+    months++;
+  }
+  var totalContrib = cur + monthly * months;
+  var interest = fv - totalContrib;
+  var fmt = function(v) { return 'GH₵ ' + v.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','); };
+  document.getElementById('goal-months').textContent = months + ' months';
+  document.getElementById('goal-contrib').textContent = fmt(totalContrib);
+  document.getElementById('goal-int-earned').textContent = fmt(interest);
+  document.getElementById('goal-years').textContent = (months / 12).toFixed(1) + ' years';
+  document.getElementById('goal-result').classList.add('show');
+}
+
+// ─── SHIPPING COST ───
+function calcShipping() {
+  var w = parseFloat(document.getElementById('ship-weight').value) || 0;
+  var type = document.getElementById('ship-type').value;
+  var origin = document.getElementById('ship-origin').value;
+  var dest = document.getElementById('ship-dest').value;
+  var distMap = { accra: 0, kumasi: 250, takoradi: 220, tamale: 600, 'cape-coast': 150 };
+  var dist = Math.abs((distMap[origin] || 0) - (distMap[dest] || 0));
+  var base = type === 'standard' ? 15 : type === 'express' ? 30 : 50;
+  var weightCharge = w * (type === 'same-day' ? 5 : 2);
+  var distFactor = dist * 0.05;
+  var total = base + weightCharge + distFactor;
+  var times = { standard: '3-5 business days', express: '1-2 business days', 'same-day': 'Same day' };
+  var fmt = function(v) { return 'GH₵ ' + v.toFixed(2); };
+  document.getElementById('ship-cost').textContent = fmt(total);
+  document.getElementById('ship-time').textContent = 'Estimated delivery: ' + (times[type] || '');
+  document.getElementById('ship-base').textContent = fmt(base);
+  document.getElementById('ship-weight-cost').textContent = fmt(weightCharge);
+  document.getElementById('ship-distance').textContent = fmt(distFactor);
+  document.getElementById('shipping-result').classList.add('show');
+}
+
+// ─── WATER BILL ───
+function calcWater() {
+  var g = parseFloat(document.getElementById('water-gallons').value) || 0;
+  var type = document.getElementById('water-customer').value;
+  var rates = { domestic: 0.85, commercial: 2.50, industrial: 4.00 };
+  var rate = rates[type] || 0.85;
+  var consumption = g * rate;
+  var vat = consumption * 0.15;
+  var total = consumption + vat;
+  var litres = g * 4.54609;
+  var fmt = function(v) { return 'GH₵ ' + v.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','); };
+  document.getElementById('water-consumption').textContent = fmt(consumption);
+  document.getElementById('water-vat').textContent = fmt(vat);
+  document.getElementById('water-litres').textContent = litres.toFixed(0) + ' L';
+  document.getElementById('water-total').textContent = fmt(total);
+  document.getElementById('water-result').classList.add('show');
 }
 </script>
 
@@ -1894,5 +3073,6 @@ REVENUE MODEL: Ads + Premium subscriptions + Sponsors
 
 =================================================================
 -->
+<script src="assets/exec-vp.js"></script>
 </body>
 </html>
